@@ -17,8 +17,8 @@ services:
   db_local:
     image: postgres:latest
     environment:
-      POSTGRES_DB: wtp
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: reparo_rapido
+      POSTGRES_USER: reparo_rapido
+      POSTGRES_PASSWORD: reparo_rapido
     ports:
       - 5432:5432
