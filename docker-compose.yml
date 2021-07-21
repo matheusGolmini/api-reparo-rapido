@@ -6,10 +6,19 @@ services:
     environment:
       #APP
       NODE_ENV: development
-
+    depends_on:
+      - db_local
     volumes:
       - .:/app
       - ~/.config:/root/.config
       - /node_modules
     ports:
       - '3001:3001'
+  db_local:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: wtp
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432

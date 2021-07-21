@@ -4,9 +4,16 @@ import { AppService } from './app.service';
 import { ClientModule } from './client/client.module';
 import { ProviderModule } from './provider/provider.module';
 import { AdminModule } from './admin/admin.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { configDatabase } from './database/config/config.data';
 
 @Module({
-  imports: [ClientModule, ProviderModule, AdminModule],
+  imports: [
+    TypeOrmModule.forRoot(configDatabase),
+    ClientModule,
+    ProviderModule,
+    AdminModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
