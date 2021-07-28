@@ -9,7 +9,18 @@ export class AdminService {
   }
 
   findAll() {
-    return `This action returns all admin`;
+    return [
+      {
+        id: '1',
+        name: 'Henrique',
+        isAdm: true,
+      },
+      {
+        id: '2',
+        name: 'Matheus',
+        isAdm: true,
+      },
+    ];
   }
 
   findOne(id: number) {
