@@ -10,7 +10,6 @@ async function bootstrap() {
     .setTitle('Reparo Rapido API example')
     .setDescription('TCC API')
     .setVersion('1.0')
-    // .addTag('client')
     // .addTag('provider')
     .addTag('token')
     .addTag('admin')
