@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { Person } from '../../database/entities/person.entity';
+import { Person } from '../../person/entities/person.entity';
 
 @Entity()
 export class ServiceProvider {
