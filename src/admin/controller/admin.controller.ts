@@ -17,7 +17,7 @@ import { AdminService } from '../service/admin.service';
 import { CreateAdminDto } from '../dto/create-admin.dto';
 import { LoginAdminDto } from '../dto/login.dto';
 
-@ApiTags('admin')
+@ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
   constructor(

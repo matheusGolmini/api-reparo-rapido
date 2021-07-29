@@ -1,9 +1,9 @@
 import { Body, Controller, Put } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
 import { TokenService } from '../service/token.service';
 
-@ApiTags('token')
+@ApiTags('Token')
 @Controller('token')
 export class TokenController {
   constructor(private tokenService: TokenService) {}

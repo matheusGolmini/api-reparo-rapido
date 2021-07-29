@@ -11,8 +11,8 @@ async function bootstrap() {
     .setDescription('TCC API')
     .setVersion('1.0')
     // .addTag('provider')
-    .addTag('token')
-    .addTag('admin')
+    .addTag('Token')
+    .addTag('Admin')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
