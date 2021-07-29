@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('Reparo Rapido API example')
+    .setTitle('Reparo Rapido API')
     .setDescription('TCC API')
     .setVersion('1.0')
     // .addTag('provider')
