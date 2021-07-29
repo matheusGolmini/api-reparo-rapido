@@ -6,11 +6,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Reparo Rapido API example')
     .setDescription('TCC API')
     .setVersion('1.0')
-    .addTag('client')
-    .addTag('provider')
+    // .addTag('client')
+    // .addTag('provider')
     .addTag('token')
     .addTag('admin')
     .build();

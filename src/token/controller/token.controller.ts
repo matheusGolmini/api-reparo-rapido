@@ -1,5 +1,5 @@
 import { Body, Controller, Put } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
 import { TokenService } from '../service/token.service';
 
