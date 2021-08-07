@@ -19,7 +19,8 @@ async function bootstrap() {
     .setTitle('Reparo Rapido API')
     .setDescription('TCC API')
     .setVersion('1.0')
-    // .addTag('provider')
+    .addTag('Provider')
+    .addTag('PersonBlocked')
     .addTag('Token')
     .addTag('Admin')
     .build();
