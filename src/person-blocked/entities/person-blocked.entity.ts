@@ -10,6 +10,9 @@ export class PersonBlocked extends DefaultAttributes {
   @Column({ type: 'uuid', name: 'id_person' })
   idPerson: string;
 
+  @Column({ type: 'uuid', name: 'id_person_blocker' })
+  idPersonBlocker: string;
+
   @Column({ type: 'boolean', default: true, name: 'is_blocked' })
   isBlocked: boolean;
 
@@ -18,4 +21,10 @@ export class PersonBlocked extends DefaultAttributes {
     name: 'id_person',
   })
   person: Person;
+
+  @ManyToOne(() => Person, (person) => person.id)
+  @JoinColumn({
+    name: 'id_person_blocker',
+  })
+  personBlocker: Person;
 }
