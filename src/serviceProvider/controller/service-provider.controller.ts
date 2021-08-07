@@ -6,10 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  SetMetadata,
+  UseGuards,
 } from '@nestjs/common';
 import { ServiceProviderService } from '../service/service-provider.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
+import { Roles } from '../../shared/enum/roles';
+import { RolesGuard } from '../../auth/guard/roles.guard';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 
 @ApiTags('provider')
 @Controller('provider')
@@ -21,6 +26,9 @@ export class ServiceProviderController {
     return this.providerService.create(createProviderDto);
   }
 
+  @SetMetadata('roles', [Roles.ADMIN])
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
   @Get('waiting-for-approval')
   findAll() {
     return this.providerService.findWaitingForApproval();
