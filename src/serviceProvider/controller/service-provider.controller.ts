@@ -21,9 +21,9 @@ export class ServiceProviderController {
     return this.providerService.create(createProviderDto);
   }
 
-  @Get()
+  @Get('waiting-for-approval')
   findAll() {
-    return this.providerService.findAll();
+    return this.providerService.findWaitingForApproval();
   }
 
   @Get(':id')

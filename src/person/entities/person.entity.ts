@@ -15,7 +15,7 @@ export class Person extends DefaultAttributes {
   @Column({ type: 'varchar' })
   phone: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', select: false })
   password: string;
 
   @Column({ type: 'varchar' })

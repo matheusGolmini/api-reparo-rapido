@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PersonService } from '../../person/service/person.service';
 import { AdpterBcrypt } from '../../utils/Encrypeter/bcrypt.adpter';
 import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
+import { ServiceProvider } from '../entities/service-provider.entity';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
 
 @Injectable()
@@ -26,8 +27,8 @@ export class ServiceProviderService {
     });
   }
 
-  findAll() {
-    return `This action returns all provider`;
+  findWaitingForApproval(): Promise<ServiceProvider[]> {
+    return this.serviceProviderRepository.find({ where: { idApprover: null } });
   }
 
   findOne(id: number) {

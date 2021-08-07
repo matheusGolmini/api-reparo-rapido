@@ -3,7 +3,7 @@ import { Person } from '../../person/entities/person.entity';
 
 @Entity()
 export class ServiceProvider {
-  @OneToOne(() => Person, { primary: true })
+  @OneToOne(() => Person, { primary: true, eager: true })
   @JoinColumn({ name: 'id_service_provider' })
   idServiceProvider: string;
 
