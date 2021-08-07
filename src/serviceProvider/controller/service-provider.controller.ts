@@ -49,13 +49,13 @@ export class ServiceProviderController {
     return this.providerService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProviderDto: any) {
-    return this.providerService.update(+id, updateProviderDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateProviderDto: any) {
+  //   return this.providerService.update(+id, updateProviderDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.providerService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.providerService.remove(+id);
+  // }
 }
