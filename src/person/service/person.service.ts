@@ -11,7 +11,7 @@ export class PersonService {
     private readonly personRepository: PersonRepository,
   ) {}
 
-  findOnePerson(email: string): Promise<Person> {
+  findOnePersonByEmail(email: string): Promise<Person> {
     return this.personRepository.findOne({ where: { email } });
   }
 

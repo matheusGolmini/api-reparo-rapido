@@ -15,7 +15,7 @@ export class ServiceProviderService {
     private readonly adpterBcrypt: AdpterBcrypt,
   ) {}
   async create(values: CreateServiceProviderDto) {
-    let person = await this.personService.findOnePerson(values.email);
+    let person = await this.personService.findOnePersonByEmail(values.email);
 
     if (!person) {
       values.password = this.adpterBcrypt.encrypt(values.password);

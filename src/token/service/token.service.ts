@@ -38,7 +38,9 @@ export class TokenService {
   async refreshToken(oldToken: string) {
     const objToken = await this.tokenRepository.findOne({ hash: oldToken });
     if (objToken) {
-      const person = await this.personService.findOnePerson(objToken.email);
+      const person = await this.personService.findOnePersonByEmail(
+        objToken.email,
+      );
       return this.authService.login(person);
     } else {
       return new HttpException(

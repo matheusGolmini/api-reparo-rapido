@@ -42,7 +42,4 @@ export class CreatePersonDto {
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
   sex: string;
-
-  @ApiProperty({ default: false })
-  isAdmin?: boolean;
 }

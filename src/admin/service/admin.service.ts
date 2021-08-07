@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PersonService } from '../../person/service/person.service';
+import { AdpterBcrypt } from '../../utils/Encrypeter/bcrypt.adpter';
 import { CreateAdminDto } from '../dto/create-admin.dto';
 import { AdminRepository } from '../repositories/admin.repository';
 
@@ -8,11 +10,31 @@ export class AdminService {
   constructor(
     @InjectRepository(AdminRepository)
     private readonly adminRepository: AdminRepository,
+    private readonly personService: PersonService,
+    private readonly adpterBcrypt: AdpterBcrypt,
   ) {}
 
-  create(createAdminDto: CreateAdminDto) {
+  async create(createAdminDto: CreateAdminDto) {
+    const person = await this.personService.findOnePersonByEmail(
+      createAdminDto.email,
+    );
+
+    if (person) {
+      throw new HttpException(
+        'Email is already being used',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    createAdminDto.password = this.adpterBcrypt.encrypt(
+      createAdminDto.password,
+    );
+
     const admin = this.adminRepository.create(createAdminDto);
-    return this.adminRepository.save(admin);
+    const saveAdmin = await this.adminRepository.save(admin);
+    delete saveAdmin.password;
+
+    return saveAdmin;
   }
 
   findAll() {
