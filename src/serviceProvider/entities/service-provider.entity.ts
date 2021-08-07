@@ -7,18 +7,12 @@ export class ServiceProvider {
   @JoinColumn({ name: 'id_service_provider' })
   idServiceProvider: string;
 
-  @Column({ name: 'bank_account_number', type: 'int' })
-  bankAccountNumber: number;
-
-  @Column({ name: 'bank_account_agency', type: 'int' })
-  bankAccountAgency: number;
-
-  @Column({ name: 'id_approver', type: 'varchar' })
+  @Column({ name: 'id_approver', type: 'varchar', nullable: true })
   idApprover: string;
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', default: false })
   approved: boolean;
 
-  @Column({ name: 'join_date', type: 'date' })
+  @Column({ name: 'join_date', type: 'date', nullable: true })
   joinDate: Date;
 }

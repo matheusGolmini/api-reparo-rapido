@@ -18,7 +18,7 @@ export class Person1627522391723 implements MigrationInterface {
         "cpf" varchar NOT NULL, 
         "rg" varchar NOT NULL, 
         "sex" varchar NOT NULL, 
-        "is_admin" boolean NOT NULL, 
+        "is_admin" boolean NOT NULL DEFAULT false, 
         CONSTRAINT "PK_5fdaf670315c4b7e70cce85daa3" PRIMARY KEY ("id"))`,
     );
   }

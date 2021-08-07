@@ -6,11 +6,9 @@ export class ServiceProvider1627522410601 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "service_provider" (
-        "bank_account_number" integer NOT NULL, 
-        "bank_account_agency" integer NOT NULL, 
-        "id_approver" varchar NOT NULL, 
-        "approved" boolean NOT NULL, "join_date" 
-        date NOT NULL, 
+        "id_approver" varchar, 
+        "approved" boolean NOT NULL DEFAULT false,
+        "join_date" date, 
         "id_service_provider" uuid NOT NULL, 
         CONSTRAINT "REL_239bfe569a81f1bc825c505de0" UNIQUE ("id_service_provider"), 
         CONSTRAINT "PK_239bfe569a81f1bc825c505de03" PRIMARY KEY ("id_service_provider"))`,

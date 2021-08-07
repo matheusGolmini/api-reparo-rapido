@@ -27,6 +27,6 @@ export class Person extends DefaultAttributes {
   @Column({ type: 'varchar' })
   sex: string;
 
-  @Column({ type: 'boolean', name: 'is_admin' })
+  @Column({ type: 'boolean', name: 'is_admin', default: false })
   isAdmin: boolean;
 }
