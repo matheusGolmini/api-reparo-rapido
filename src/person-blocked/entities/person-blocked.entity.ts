@@ -10,7 +10,7 @@ export class PersonBlocked extends DefaultAttributes {
   @Column({ type: 'uuid', name: 'id_person' })
   idPerson: string;
 
-  @Column({ type: 'uuid', default: true, name: 'is_blocked' })
+  @Column({ type: 'boolean', default: true, name: 'is_blocked' })
   isBlocked: boolean;
 
   @ManyToOne(() => Person, (person) => person.id)
