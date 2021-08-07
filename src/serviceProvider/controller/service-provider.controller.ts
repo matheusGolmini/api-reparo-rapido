@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ServiceProviderService } from '../service/service-provider.service';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
 
 @ApiTags('provider')
 @Controller('provider')
@@ -16,7 +17,7 @@ export class ServiceProviderController {
   constructor(private readonly providerService: ServiceProviderService) {}
 
   @Post()
-  create(@Body() createProviderDto: any) {
+  create(@Body() createProviderDto: CreateServiceProviderDto) {
     return this.providerService.create(createProviderDto);
   }
 

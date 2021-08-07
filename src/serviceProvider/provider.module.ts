@@ -4,10 +4,15 @@ import { ServiceProviderController } from './controller/service-provider.control
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { ServiceProviderRepository } from './repositories/service-provider.repository';
+import { PersonModule } from '../person/person.module';
 
 @Module({
   controllers: [ServiceProviderController],
-  imports: [AuthModule, TypeOrmModule.forFeature([ServiceProviderRepository])],
+  imports: [
+    AuthModule,
+    PersonModule,
+    TypeOrmModule.forFeature([ServiceProviderRepository]),
+  ],
   providers: [ServiceProviderService],
 })
 export class ProviderModule {}
