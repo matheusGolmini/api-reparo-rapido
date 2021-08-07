@@ -31,6 +31,10 @@ export class ServiceProviderService {
     return this.serviceProviderRepository.find({ where: { idApprover: null } });
   }
 
+  findApproved(): Promise<ServiceProvider[]> {
+    return this.serviceProviderRepository.find({ where: { approved: true } });
+  }
+
   findOne(id: string) {
     return this.serviceProviderRepository.findOne({
       where: { idServiceProvider: id },

@@ -34,6 +34,14 @@ export class ServiceProviderController {
     return this.providerService.findWaitingForApproval();
   }
 
+  @SetMetadata('roles', [Roles.ADMIN])
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Get('approved')
+  findAllApproved() {
+    return this.providerService.findApproved();
+  }
+
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get(':id')
