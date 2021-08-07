@@ -5,12 +5,12 @@ services:
     command: sh -c "yarn start:dev"
     environment:
       #APP
-      NODE_ENV: production
+      NODE_ENV: development
       #DB
-      POSTGRES_HOST: ec2-107-21-10-179.compute-1.amazonaws.com
-      POSTGRES_DB: ddcgpieunn82ot
-      POSTGRES_USER: nbqmveodhkxvtp
-      POSTGRES_PASSWORD: 89c5c1e59beb4079183afb894e8b87ebe0ecb39fb7ba024480a74226d3986694
+      POSTGRES_HOST: db_local
+      POSTGRES_DB: reparo_rapido
+      POSTGRES_USER: reparo_rapido
+      POSTGRES_PASSWORD: reparo_rapido
       POSTGRES_PORT: 5432
     depends_on:
       - db_local
