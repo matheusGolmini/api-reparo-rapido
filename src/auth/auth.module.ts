@@ -16,7 +16,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     PersonModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '12h' },
     }),
   ],
   providers: [AuthService, AdpterBcrypt, LocalStrategy, JwtStrategy],

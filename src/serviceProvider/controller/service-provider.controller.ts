@@ -34,9 +34,11 @@ export class ServiceProviderController {
     return this.providerService.findWaitingForApproval();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.providerService.findOne(+id);
+    return this.providerService.findOne(id);
   }
 
   @Patch(':id')

@@ -31,8 +31,10 @@ export class ServiceProviderService {
     return this.serviceProviderRepository.find({ where: { idApprover: null } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} provider`;
+  findOne(id: string) {
+    return this.serviceProviderRepository.findOne({
+      where: { idServiceProvider: id },
+    });
   }
 
   update(id: number, updateProviderDto: any) {
