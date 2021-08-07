@@ -25,6 +25,12 @@ export class PersonBlocked1628375795890 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "person_blocked" DROP CONSTRAINT "FK_0c8495312e4994db4253cffa3c1"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "person_blocked" DROP CONSTRAINT "FK_bc05d775c7cd3e25cb0eeba6251"`,
+    );
     await queryRunner.query(`DROP TABLE "person_blocked"`);
   }
 }
