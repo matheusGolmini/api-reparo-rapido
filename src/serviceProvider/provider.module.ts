@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { ServiceProviderRepository } from './repositories/service-provider.repository';
 import { PersonModule } from '../person/person.module';
+import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
 
 @Module({
   controllers: [ServiceProviderController],
@@ -13,6 +14,6 @@ import { PersonModule } from '../person/person.module';
     PersonModule,
     TypeOrmModule.forFeature([ServiceProviderRepository]),
   ],
-  providers: [ServiceProviderService],
+  providers: [ServiceProviderService, AdpterBcrypt],
 })
 export class ProviderModule {}

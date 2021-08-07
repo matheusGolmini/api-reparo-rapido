@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PersonService } from '../../person/service/person.service';
+import { AdpterBcrypt } from '../../utils/Encrypeter/bcrypt.adpter';
 import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
 
@@ -10,11 +11,13 @@ export class ServiceProviderService {
     @InjectRepository(ServiceProviderRepository)
     private readonly serviceProviderRepository: ServiceProviderRepository,
     private readonly personService: PersonService,
+    private readonly adpterBcrypt: AdpterBcrypt,
   ) {}
   async create(values: CreateServiceProviderDto) {
     let person = await this.personService.findOnePerson(values.email);
 
     if (!person) {
+      values.password = this.adpterBcrypt.encrypt(values.password);
       person = await this.personService.create(values);
     }
 
