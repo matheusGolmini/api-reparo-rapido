@@ -15,6 +15,14 @@ export class PersonService {
     return this.personRepository.findOne({ where: { email } });
   }
 
+  findOneLogin(email: string): Promise<Person> {
+    return this.personRepository
+      .createQueryBuilder('person')
+      .where('person.email = :email', { email })
+      .addSelect('person.password')
+      .getOne();
+  }
+
   async create(values: CreatePersonDto): Promise<Person> {
     return await this.personRepository.save(values);
   }

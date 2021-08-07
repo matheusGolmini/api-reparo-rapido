@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Person } from '../person/entities/person.entity';
 import { PersonService } from '../person/service/person.service';
 import { TokenService } from '../token/service/token.service';
+import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
 
 @Injectable()
 export class AuthService {
@@ -11,11 +12,13 @@ export class AuthService {
     private jwtService: JwtService,
     @Inject(forwardRef(() => TokenService))
     private tokenService: TokenService,
+    private readonly adpterBcrypt: AdpterBcrypt,
   ) {}
 
   async validatePerson(email: string, pass: string): Promise<any> {
-    const person = await this.personService.findOnePersonByEmail(email);
-    if (person && person.password === pass) {
+    const person = await this.personService.findOneLogin(email);
+
+    if (person && this.adpterBcrypt.compare(pass, person.password)) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = person;
       return result;

@@ -1,3 +1,3 @@
 export interface EncrypterCompare {
-  compare(password: string): boolean;
+  compare(password: string, hashPassword: string): boolean;
 }
