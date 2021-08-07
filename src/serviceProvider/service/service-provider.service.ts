@@ -1,15 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PersonService } from '../../person/service/person.service';
+import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
 
 @Injectable()
 export class ServiceProviderService {
   constructor(
     @InjectRepository(ServiceProviderRepository)
-    private readonly ServiceProviderRepository: ServiceProviderRepository,
+    private readonly serviceProviderRepository: ServiceProviderRepository,
+    private readonly personService: PersonService,
   ) {}
-  create(createProviderDto: any) {
-    return 'This action adds a new provider';
+  async create(values: CreateServiceProviderDto) {
+    let person = await this.personService.findOnePerson(values.email);
+
+    if (!person) {
+      person = await this.personService.create(values);
+    }
+
+    return await this.serviceProviderRepository.save({
+      idServiceProvider: person.id,
+    });
   }
 
   findAll() {
