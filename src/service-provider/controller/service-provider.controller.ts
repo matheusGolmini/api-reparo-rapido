@@ -6,6 +6,8 @@ import {
   Param,
   SetMetadata,
   UseGuards,
+  Request,
+  Patch,
 } from '@nestjs/common';
 import { ServiceProviderService } from '../service/service-provider.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -45,6 +47,15 @@ export class ServiceProviderController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.providerService.findOne(id);
+  }
+
+  @SetMetadata('roles', [Roles.ADMIN])
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Patch(':id/approved')
+  async approved(@Param('id') id: string, @Request() { user }: any) {
+    await this.providerService.approved(id, user.id);
+    return { message: 'Success' };
   }
 
   // @Patch(':id')

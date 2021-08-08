@@ -41,8 +41,15 @@ export class ServiceProviderService {
     });
   }
 
-  update(id: number, updateProviderDto: any) {
-    return `This action updates a #${id} provider`;
+  approved(idPerson: string, idApprover: string) {
+    return this.serviceProviderRepository.update(
+      { idServiceProvider: idPerson },
+      {
+        approved: true,
+        joinDate: new Date(),
+        idApprover,
+      },
+    );
   }
 
   remove(id: number) {
