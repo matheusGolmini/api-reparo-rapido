@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { Person } from '../../person/entities/person.entity';
 
 @Entity()
@@ -7,7 +7,7 @@ export class ServiceProvider {
   @JoinColumn({ name: 'id_service_provider' })
   idServiceProvider: string;
 
-  @Column({ name: 'id_approver', type: 'varchar', nullable: true })
+  @Column({ name: 'id_person_approver', type: 'varchar', nullable: true })
   idApprover: string;
 
   @Column({ type: 'boolean', default: false })
@@ -15,4 +15,10 @@ export class ServiceProvider {
 
   @Column({ name: 'join_date', type: 'date', nullable: true })
   joinDate: Date;
+
+  @ManyToOne(() => Person, (person) => person.id)
+  @JoinColumn({
+    name: 'id_person_approver',
+  })
+  person: Person;
 }

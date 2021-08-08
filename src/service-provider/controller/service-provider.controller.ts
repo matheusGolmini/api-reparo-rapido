@@ -3,9 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   SetMetadata,
   UseGuards,
 } from '@nestjs/common';
