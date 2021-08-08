@@ -10,9 +10,11 @@ export class PersonBlocked1628375795890 implements MigrationInterface {
         "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), 
         "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), 
         "deleted_at" TIMESTAMP WITH TIME ZONE, 
-        "description" varchar NOT NULL, 
+        "blocker_description" VARCHAR NOT NULL, 
+        "unlock_description" VARCHAR, 
         "id_person" uuid NOT NULL, 
         "id_person_blocker" uuid NOT NULL, 
+        "id_person_unlocker" uuid, 
         "is_blocked" boolean NOT NULL DEFAULT true, 
         CONSTRAINT "PK_661fbe23c8b6158b9fbcecdc6f4" PRIMARY KEY ("id"))`,
     );
@@ -22,9 +24,15 @@ export class PersonBlocked1628375795890 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "person_blocked" ADD CONSTRAINT "FK_0c8495312e4994db4253cffa3c1" FOREIGN KEY ("id_person_blocker") REFERENCES "person"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
+    await queryRunner.query(
+      `ALTER TABLE "person_blocked" ADD CONSTRAINT "FK_1e91b87ffa0856ab2b1912e3884" FOREIGN KEY ("id_person_unlocker") REFERENCES "person"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "person_blocked" DROP CONSTRAINT "FK_1e91b87ffa0856ab2b1912e3884"`,
+    );
     await queryRunner.query(
       `ALTER TABLE "person_blocked" DROP CONSTRAINT "FK_0c8495312e4994db4253cffa3c1"`,
     );
