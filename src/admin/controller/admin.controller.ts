@@ -6,6 +6,8 @@ import {
   UseGuards,
   Request,
   SetMetadata,
+  Patch,
+  Param,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
@@ -25,6 +27,11 @@ export class AdminController {
     private authService: AuthService,
   ) {}
 
+  @Post()
+  async create(@Body() createAdminDto: CreateAdminDto) {
+    return await this.adminService.create(createAdminDto);
+  }
+
   @UseGuards(AuthGuard('local'))
   @Post('login')
   @ApiBody({
@@ -42,8 +49,12 @@ export class AdminController {
     return this.adminService.findAll();
   }
 
-  @Post()
-  async create(@Body() createAdminDto: CreateAdminDto) {
-    return await this.adminService.create(createAdminDto);
+  @SetMetadata('roles', [Roles.ADMIN])
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Patch('person/:id/reset-password')
+  async resetPassword(@Param('id') id: string) {
+    this.adminService.resetPassword(id);
+    return { message: 'Success' };
   }
 }

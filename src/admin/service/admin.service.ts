@@ -40,4 +40,11 @@ export class AdminService {
   findAll() {
     return this.adminRepository.find({ where: { isAdmin: true } });
   }
+
+  resetPassword(id: string): void {
+    this.adminRepository.update(
+      { id },
+      { password: this.adpterBcrypt.encrypt('senha123456') },
+    );
+  }
 }

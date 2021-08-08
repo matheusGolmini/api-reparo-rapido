@@ -16,7 +16,7 @@ import { Roles } from '../../shared/enum/roles';
 import { RolesGuard } from '../../auth/guard/roles.guard';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 
-@ApiTags('provider')
+@ApiTags('Provider')
 @Controller('provider')
 export class ServiceProviderController {
   constructor(private readonly providerService: ServiceProviderService) {}
