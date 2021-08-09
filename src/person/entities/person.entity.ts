@@ -24,6 +24,9 @@ export class Person extends DefaultAttributes {
   @Column({ type: 'varchar' })
   rg: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  id_html: string;
+
   @Column({ type: 'varchar' })
   sex: string;
 
