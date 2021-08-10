@@ -1,0 +1,13 @@
+create or replace trigger add_id_html after insert 
+on person
+for each row 
+execute procedure add_id_html();
+
+create or replace function add_id_html() RETURNS trigger AS $$
+BEGIN
+	update person 
+		set id_html = concat('<a class=codigo value=',new.id,'>Visualizar</a>')
+	where person.id = new.id;
+	return new;
+END
+$$ language plpgsql;
