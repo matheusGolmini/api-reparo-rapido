@@ -1,4 +1,4 @@
-create or replace trigger add_id_html after insert 
+create trigger add_id_html after insert 
 on person
 for each row 
 execute procedure add_id_html();
