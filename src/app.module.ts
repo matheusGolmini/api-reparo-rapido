@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import { TokenModule } from './token/token.module';
 import { PersonModule } from './person/person.module';
 import { PersonBlockedModule } from './person-blocked/person-blocked.module';
+import { AddressModule } from './address/address.module';
+import { PersonAddressModule } from './person-address/person-address.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { PersonBlockedModule } from './person-blocked/person-blocked.module';
     TokenModule,
     PersonModule,
     PersonBlockedModule,
+    AddressModule,
+    PersonAddressModule,
   ],
   controllers: [AppController],
   providers: [AppService],
