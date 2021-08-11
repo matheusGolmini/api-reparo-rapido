@@ -48,6 +48,19 @@ export class ServiceProviderService {
         approved: true,
         joinDate: new Date(),
         idApprover,
+        descriptionNotApproved: null,
+      },
+    );
+  }
+
+  rejected(idPerson: string, idApprover: string, description: string) {
+    return this.serviceProviderRepository.update(
+      { idServiceProvider: idPerson },
+      {
+        approved: false,
+        joinDate: new Date(),
+        idApprover,
+        descriptionNotApproved: description,
       },
     );
   }

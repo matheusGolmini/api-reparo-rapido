@@ -15,6 +15,7 @@ import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
 import { Roles } from '../../shared/enum/roles';
 import { RolesGuard } from '../../auth/guard/roles.guard';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { RejectedServiceProviderDto } from '../dto/rejected-service-rpovider';
 
 @ApiTags('Provider')
 @Controller('provider')
@@ -55,6 +56,19 @@ export class ServiceProviderController {
   @Patch(':id/approved')
   async approved(@Param('id') id: string, @Request() { user }: any) {
     await this.providerService.approved(id, user.id);
+    return { message: 'Success' };
+  }
+
+  @SetMetadata('roles', [Roles.ADMIN])
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Patch(':id/rejected')
+  async rejected(
+    @Param('id') id: string,
+    @Body() data: RejectedServiceProviderDto,
+    @Request() { user }: any,
+  ) {
+    await this.providerService.rejected(id, user.id, data.description);
     return { message: 'Success' };
   }
 

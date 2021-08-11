@@ -16,6 +16,9 @@ export class ServiceProvider {
   @Column({ name: 'join_date', type: 'date', nullable: true })
   joinDate: Date;
 
+  @Column({ type: 'varchar', name: 'description_not_approved', nullable: true })
+  descriptionNotApproved: string;
+
   @ManyToOne(() => Person, (person) => person.id)
   @JoinColumn({
     name: 'id_person_approver',
