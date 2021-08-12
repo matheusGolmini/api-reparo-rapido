@@ -18,7 +18,9 @@ export class ServiceProviderService {
   ) {}
   async create(values: CreateServiceProviderDto) {
     this.validtorDocument(values.cpf, values.cnpj);
+
     let person = await this.personService.findOnePersonByEmail(values.email);
+    await this.alreadyExistsServiceProvider(person?.id);
 
     if (!person) {
       values.password = this.adpterBcrypt.encrypt(values.password);
@@ -27,7 +29,24 @@ export class ServiceProviderService {
 
     return await this.serviceProviderRepository.save({
       idServiceProvider: person.id,
+      cnpj: values.cnpj,
     });
+  }
+
+  async alreadyExistsServiceProvider(
+    idServiceProvider?: string,
+  ): Promise<void> {
+    if (idServiceProvider) {
+      const serviceProvider = await this.serviceProviderRepository.findOne({
+        where: { idServiceProvider },
+      });
+      if (serviceProvider) {
+        throw new HttpException(
+          'already have an account with this email',
+          HttpStatus.CONFLICT,
+        );
+      }
+    }
   }
 
   validtorDocument(cpf: string, cnpj: string): void {
