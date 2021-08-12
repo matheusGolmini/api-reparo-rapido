@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PersonService } from '../../person/service/person.service';
 import { AdpterBcrypt } from '../../utils/Encrypeter/bcrypt.adpter';
+import { AdpterValidatorDocument } from '../../utils/ValidatorDocument/cpf-cnpj-validator.adapter';
 import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
 import { ServiceProvider } from '../entities/service-provider.entity';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
@@ -13,8 +14,10 @@ export class ServiceProviderService {
     private readonly serviceProviderRepository: ServiceProviderRepository,
     private readonly personService: PersonService,
     private readonly adpterBcrypt: AdpterBcrypt,
+    private readonly documentValidator: AdpterValidatorDocument,
   ) {}
   async create(values: CreateServiceProviderDto) {
+    this.validtorDocument(values.cpf, values.cnpj);
     let person = await this.personService.findOnePersonByEmail(values.email);
 
     if (!person) {
@@ -25,6 +28,15 @@ export class ServiceProviderService {
     return await this.serviceProviderRepository.save({
       idServiceProvider: person.id,
     });
+  }
+
+  validtorDocument(cpf: string, cnpj: string): void {
+    if (!this.documentValidator.isValidCpf(cpf)) {
+      throw new HttpException('CPF invalid', HttpStatus.BAD_REQUEST);
+    }
+    if (!this.documentValidator.isValidCnpj(cnpj)) {
+      throw new HttpException('CNPJ invalid', HttpStatus.BAD_REQUEST);
+    }
   }
 
   findWaitingForApproval(): Promise<ServiceProvider[]> {

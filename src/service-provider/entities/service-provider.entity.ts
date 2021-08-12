@@ -13,6 +13,9 @@ export class ServiceProvider {
   @Column({ type: 'boolean', default: false })
   approved: boolean;
 
+  @Column({ type: 'varchar', nullable: true })
+  cnpj: string;
+
   @Column({ name: 'join_date', type: 'date', nullable: true })
   joinDate: Date;
 
