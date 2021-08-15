@@ -1,6 +1,9 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateAddressDto } from '../dto/create-address.dto';
+import {
+  CreateAddressBodyDto,
+  CreateAddressDtoParamDTO,
+} from '../dto/create-address.dto';
 import { AddressService } from '../service/address.service';
 
 @ApiTags('Address')
@@ -10,8 +13,8 @@ export class AddressController {
 
   @Post(':idPerson')
   async create(
-    @Body() createAdminDto: CreateAddressDto,
-    @Param('idPerson') idPerson: string,
+    @Body() createAdminDto: CreateAddressBodyDto,
+    @Param() { idPerson }: CreateAddressDtoParamDTO,
   ) {
     return await this.addressService.create(createAdminDto, idPerson);
   }
