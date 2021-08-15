@@ -16,7 +16,7 @@ export class Address1628647163025 implements MigrationInterface {
           "region" VARCHAR NOT NULL, 
           "street" VARCHAR NOT NULL, 
           "type" VARCHAR NOT NULL, 
-          "zip" numeric NOT NULL, 
+          "zip" VARCHAR NOT NULL, 
           CONSTRAINT "PK_d92de1f82754668b5f5f5dd4fd5" PRIMARY KEY ("id"))`,
     );
   }

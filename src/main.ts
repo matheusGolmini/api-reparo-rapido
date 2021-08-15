@@ -23,6 +23,7 @@ async function bootstrap() {
     .addTag('PersonBlocked')
     .addTag('Token')
     .addTag('Admin')
+    .addTag('Address')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

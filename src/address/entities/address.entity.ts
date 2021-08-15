@@ -21,6 +21,6 @@ export class Address extends DefaultAttributes {
   @Column({ type: 'varchar' })
   type: string;
 
-  @Column({ type: 'numeric' })
-  zip: number;
+  @Column({ type: 'varchar' })
+  zip: string;
 }
