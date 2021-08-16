@@ -13,4 +13,8 @@ export class AddressService {
   create(createAddressDto: CreateAddressBodyDto) {
     return this.addressRepository.save(createAddressDto);
   }
+
+  delete(idAddress: string) {
+    return this.addressRepository.delete(idAddress);
+  }
 }

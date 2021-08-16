@@ -24,4 +24,9 @@ export class PersonAddressService {
   getByIdPerson(idPerson: string) {
     return this.personAddressRepository.find({ idPerson });
   }
+
+  async delete(idAddress: string): Promise<void> {
+    await this.personAddressRepository.delete({ idAddress });
+    this.addressService.delete(idAddress);
+  }
 }

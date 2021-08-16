@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import {
   CreatePersonAddressDtoParamDTO,
   CreatePersonAddressBodyDto,
 } from '../dto/create-person-address.dto';
+import { DeletePersonAddressByIdAddressDtoParamDTO } from '../dto/delete-person-address-by-id-address.dto';
 import { GetPersonAddressByIdPersonDtoParamDTO } from '../dto/get-person-address-by-id-person.dto';
 import { PersonAddressService } from '../service/person-address.service';
 
@@ -23,5 +24,12 @@ export class PersonAddressController {
   @Get(':idPerson')
   async get(@Param() { idPerson }: GetPersonAddressByIdPersonDtoParamDTO) {
     return await this.personAddressService.getByIdPerson(idPerson);
+  }
+
+  @Delete(':idAddress')
+  async delete(
+    @Param() { idAddress }: DeletePersonAddressByIdAddressDtoParamDTO,
+  ): Promise<void> {
+    await this.personAddressService.delete(idAddress);
   }
 }
