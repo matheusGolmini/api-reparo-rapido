@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Address } from '../../address/entities/address.entity';
+import { AddressService } from '../../address/service/address.service';
 import { PersonAddressRepository } from '../repositories/person-address.repository';
 
 @Injectable()
@@ -7,9 +9,19 @@ export class PersonAddressService {
   constructor(
     @InjectRepository(PersonAddressRepository)
     private readonly personAddressRepository: PersonAddressRepository,
+    private readonly addressService: AddressService,
   ) {}
 
-  create(idPerson: string, idAddress: string) {
-    return this.personAddressRepository.save({ idPerson, idAddress });
+  async create(address: any, idPerson: string): Promise<Address> {
+    const newAddress = await this.addressService.create(address);
+    await this.personAddressRepository.save({
+      idAddress: newAddress.id,
+      idPerson,
+    });
+    return newAddress;
+  }
+
+  getByIdPerson(idPerson: string) {
+    return this.personAddressRepository.find({ idPerson });
   }
 }

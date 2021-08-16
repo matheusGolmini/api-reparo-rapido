@@ -4,7 +4,7 @@ import { Person } from '../../person/entities/person.entity';
 
 @Entity()
 export class PersonAddress {
-  @ManyToOne(() => Person, { primary: true })
+  @ManyToOne(() => Person, { primary: true, eager: true })
   @JoinColumn({ name: 'id_person' })
   idPerson: string;
 
