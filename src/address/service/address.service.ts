@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UpdatePersonAddressBodyDto } from '../../person-address/dto/update-person-address.dto';
 import { CreateAddressBodyDto } from '../dto/create-address.dto';
 import { AddressRepository } from '../repositories/address.repository';
 
@@ -16,5 +17,9 @@ export class AddressService {
 
   delete(idAddress: string) {
     return this.addressRepository.delete(idAddress);
+  }
+
+  update(idAddress: string, address: UpdatePersonAddressBodyDto) {
+    return this.addressRepository.update({ id: idAddress }, address);
   }
 }

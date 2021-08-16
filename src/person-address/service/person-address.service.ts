@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from '../../address/entities/address.entity';
 import { AddressService } from '../../address/service/address.service';
+import { UpdatePersonAddressBodyDto } from '../dto/update-person-address.dto';
 import { PersonAddressRepository } from '../repositories/person-address.repository';
 
 @Injectable()
@@ -28,5 +29,9 @@ export class PersonAddressService {
   async delete(idAddress: string): Promise<void> {
     await this.personAddressRepository.delete({ idAddress });
     this.addressService.delete(idAddress);
+  }
+
+  updated(idAddress: string, address: UpdatePersonAddressBodyDto) {
+    return this.addressService.update(idAddress, address);
   }
 }
