@@ -4,6 +4,7 @@ import {
   CreatePersonAddressDtoParamDTO,
   CreatePersonAddressBodyDto,
 } from '../dto/create-person-address.dto';
+import { GetPersonAddressByIdPersonDtoParamDTO } from '../dto/get-person-address-by-id-person.dto';
 import { PersonAddressService } from '../service/person-address.service';
 
 @ApiTags('PersonAddress')
@@ -19,8 +20,8 @@ export class PersonAddressController {
     return await this.personAddressService.create(createAdminDto, idPerson);
   }
 
-  //   @Get(':idPerson')
-  //   async get(@Param() { idPerson }: CreateAddressDtoParamDTO) {
-  //     // return await this.addressService.create(idPerson);
-  //   }
+  @Get(':idPerson')
+  async get(@Param() { idPerson }: GetPersonAddressByIdPersonDtoParamDTO) {
+    return await this.personAddressService.getByIdPerson(idPerson);
+  }
 }
