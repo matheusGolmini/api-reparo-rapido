@@ -6,8 +6,10 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import {
   CreatePersonAddressDtoParamDTO,
   CreatePersonAddressBodyDto,
@@ -33,11 +35,15 @@ export class PersonAddressController {
     return await this.personAddressService.create(createAdminDto, idPerson);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':idPerson')
   async get(@Param() { idPerson }: GetPersonAddressByIdPersonDtoParamDTO) {
     return await this.personAddressService.getByIdPerson(idPerson);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':idAddress')
   async delete(
     @Param() { idAddress }: DeletePersonAddressByIdAddressDtoParamDTO,
@@ -45,6 +51,8 @@ export class PersonAddressController {
     await this.personAddressService.delete(idAddress);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Put(':idAddress')
   async update(
     @Body() updateAddress: UpdatePersonAddressBodyDto,
