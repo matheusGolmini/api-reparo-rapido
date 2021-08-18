@@ -28,6 +28,20 @@ export class PersonBlockedService {
     throw new HttpException('User is already blocked', HttpStatus.CONFLICT);
   }
 
+  get(): Promise<PersonBlocked[]> {
+    return this.personBlockedRepository.find();
+  }
+
+  async getByPersonId(idPerson: string): Promise<PersonBlocked> {
+    const personBlocked = await this.personBlockedRepository.findOne({
+      where: { idPerson },
+    });
+    if (!personBlocked) {
+      throw new HttpException('id person not found', HttpStatus.NOT_FOUND);
+    }
+    return personBlocked;
+  }
+
   async softDeleteBlocked(
     values: SoftDeletePersonBlockedDto,
     idPersonUnlocker: string,

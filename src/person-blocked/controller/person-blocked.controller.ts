@@ -7,6 +7,7 @@ import {
   Request,
   UseGuards,
   SetMetadata,
+  Get,
 } from '@nestjs/common';
 import { PersonBlockedService } from '../service/person-blocked.service';
 import { CreatePersonBlockedDto } from '../dto/create-person-blocked.dto';
@@ -33,6 +34,16 @@ export class PersonBlockedController {
       createPersonBlockedDto,
       user.id,
     );
+  }
+
+  @Get()
+  get() {
+    return this.personBlockedService.get();
+  }
+
+  @Get(':idPerson')
+  getByIdPerson(@Param('idPerson') idPerson: string) {
+    return this.personBlockedService.getByPersonId(idPerson);
   }
 
   @Delete()
