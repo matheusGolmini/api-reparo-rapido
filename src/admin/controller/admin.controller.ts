@@ -21,10 +21,7 @@ import { CreateAdminDto } from '../dto/create-admin.dto';
 @ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
-  constructor(
-    private readonly adminService: AdminService,
-    private authService: AuthService,
-  ) {}
+  constructor(private readonly adminService: AdminService) {}
 
   @Post()
   async create(@Body() createAdminDto: CreateAdminDto) {
