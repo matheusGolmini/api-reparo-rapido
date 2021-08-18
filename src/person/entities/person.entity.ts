@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany } from 'typeorm';
 import DefaultAttributes from '../../database/config/default.attributes';
+import { PersonBlocked } from '../../person-blocked/entities/person-blocked.entity';
 
 @Entity()
 export class Person extends DefaultAttributes {
@@ -32,4 +33,8 @@ export class Person extends DefaultAttributes {
 
   @Column({ type: 'boolean', name: 'is_admin', default: false })
   isAdmin: boolean;
+
+  @OneToMany(() => PersonBlocked, (personBlocked) => personBlocked.person)
+  @JoinColumn({ name: 'id_person' })
+  personBlocked: PersonBlocked[];
 }

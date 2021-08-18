@@ -18,6 +18,7 @@ export class PersonService {
   findOneLogin(email: string): Promise<Person> {
     return this.personRepository
       .createQueryBuilder('person')
+      .leftJoinAndSelect('person.personBlocked', 'personBlocked')
       .where('person.email = :email', { email })
       .addSelect('person.password')
       .getOne();

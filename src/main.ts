@@ -23,6 +23,7 @@ async function bootstrap() {
     .addTag('PersonBlocked')
     .addTag('Token')
     .addTag('Admin')
+    .addTag('Auth')
     .addTag('PersonAddress')
     .build();
 

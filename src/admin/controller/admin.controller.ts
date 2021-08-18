@@ -17,7 +17,6 @@ import { RolesGuard } from '../../auth/guard/roles.guard';
 import { Roles } from '../../shared/enum/roles';
 import { AdminService } from '../service/admin.service';
 import { CreateAdminDto } from '../dto/create-admin.dto';
-import { LoginAdminDto } from '../dto/login.dto';
 
 @ApiTags('Admin')
 @Controller('admin')
@@ -30,15 +29,6 @@ export class AdminController {
   @Post()
   async create(@Body() createAdminDto: CreateAdminDto) {
     return await this.adminService.create(createAdminDto);
-  }
-
-  @UseGuards(AuthGuard('local'))
-  @Post('login')
-  @ApiBody({
-    type: LoginAdminDto,
-  })
-  async login(@Request() req) {
-    return this.authService.login(req.user);
   }
 
   @SetMetadata('roles', [Roles.ADMIN])

@@ -6,6 +6,7 @@ import { TokenModule } from '../token/token.module';
 import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
+import { AuthController } from './controller/auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
@@ -20,6 +21,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     }),
   ],
   providers: [AuthService, AdpterBcrypt, LocalStrategy, JwtStrategy],
+  controllers: [AuthController],
   exports: [JwtModule, AuthService],
 })
 export class AuthModule {}
