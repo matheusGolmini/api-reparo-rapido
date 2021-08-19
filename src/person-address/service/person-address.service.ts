@@ -23,7 +23,7 @@ export class PersonAddressService {
   }
 
   getByIdPerson(idPerson: string) {
-    return this.personAddressRepository.find({ idPerson });
+    return this.personAddressRepository.find({ where: { idPerson } });
   }
 
   async delete(idAddress: string): Promise<void> {

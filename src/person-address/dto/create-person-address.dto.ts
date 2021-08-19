@@ -37,10 +37,10 @@ export class CreatePersonAddressBodyDto {
   @ApiProperty()
   zip: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
-  number: number;
+  number: string;
 }
 
 export class CreatePersonAddressDtoParamDTO {
