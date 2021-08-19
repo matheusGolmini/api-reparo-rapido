@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
 
 export class CreatePersonAddressBodyDto {
   @IsString()
@@ -36,6 +36,11 @@ export class CreatePersonAddressBodyDto {
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
   zip: string;
+
+  @IsNumber()
+  @IsNotEmpty({ message: 'This field cannot be empty.' })
+  @ApiProperty()
+  number: number;
 }
 
 export class CreatePersonAddressDtoParamDTO {
