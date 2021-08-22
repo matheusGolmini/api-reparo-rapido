@@ -22,7 +22,7 @@ export class PersonBlocked extends DefaultAttributes {
   @Column({ type: 'boolean', default: true, name: 'is_blocked' })
   isBlocked: boolean;
 
-  @ManyToOne(() => Person, (person) => person.id, { eager: true })
+  @ManyToOne(() => Person, (person) => person.id)
   @JoinColumn({
     name: 'id_person',
   })

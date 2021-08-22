@@ -8,5 +8,6 @@ import { PersonBlockedRepository } from './repositories/person-blocked.repositor
   controllers: [PersonBlockedController],
   providers: [PersonBlockedService],
   imports: [TypeOrmModule.forFeature([PersonBlockedRepository])],
+  exports: [TypeOrmModule, PersonBlockedService],
 })
 export class PersonBlockedModule {}

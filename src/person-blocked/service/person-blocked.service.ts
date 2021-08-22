@@ -36,9 +36,7 @@ export class PersonBlockedService {
     const personBlocked = await this.personBlockedRepository.findOne({
       where: { idPerson },
     });
-    if (!personBlocked) {
-      throw new HttpException('id person not found', HttpStatus.NOT_FOUND);
-    }
+
     return personBlocked;
   }
 
