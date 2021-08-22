@@ -28,4 +28,11 @@ export class ClientController {
   getById(@Param() { id }: GetByIdClientDto) {
     return this.clientService.getById(id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get()
+  getAll() {
+    return this.clientService.getAll();
+  }
 }
