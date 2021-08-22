@@ -15,6 +15,10 @@ export class PersonService {
     return this.personRepository.findOne({ where: { email } });
   }
 
+  findOnePersonById(id: string): Promise<Person> {
+    return this.personRepository.findOne({ where: { id } });
+  }
+
   findOneLogin(email: string): Promise<Person> {
     return this.personRepository
       .createQueryBuilder('person')

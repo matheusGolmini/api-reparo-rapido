@@ -9,4 +9,12 @@ export class ClientService {
   create(createClientDto: CreateClientDto) {
     return this.personService.create(createClientDto);
   }
+
+  getByEmail(email: string) {
+    return this.personService.findOnePersonByEmail(email);
+  }
+
+  getById(id: string) {
+    return this.personService.findOnePersonById(id);
+  }
 }
