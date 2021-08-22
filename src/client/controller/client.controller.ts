@@ -1,11 +1,9 @@
 import { Controller, Post, Body, UseGuards, Param, Get } from '@nestjs/common';
 import { ClientService } from '../service/client.service';
-import { CreateClientDto } from '../dto/create-client.dto';
 
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
-import { GetByEmailClientDto } from '../dto/get-by-email-client.dto';
-import { GetByIdClientDto } from '../dto/get-by-id-client.dto';
+import { GetByEmailClientDto, GetByIdClientDto, CreateClientDto } from '../dto';
 
 @ApiTags('Client')
 @Controller('client')
