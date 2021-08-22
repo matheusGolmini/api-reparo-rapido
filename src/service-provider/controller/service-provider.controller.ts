@@ -15,7 +15,7 @@ import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
 import { Roles } from '../../shared/enum/roles';
 import { RolesGuard } from '../../auth/guard/roles.guard';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
-import { RejectedServiceProviderDto } from '../dto/rejected-service-rpovider';
+import { RejectedServiceProviderDto } from '../dto/rejected-service-provider';
 
 @ApiTags('Provider')
 @Controller('provider')

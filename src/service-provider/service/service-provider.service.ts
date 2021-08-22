@@ -1,9 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PersonBlockedService } from '../../person-blocked/service/person-blocked.service';
 import { PersonService } from '../../person/service/person.service';
 import { AdpterBcrypt } from '../../utils/Encrypeter/bcrypt.adpter';
 import { AdpterValidatorDocument } from '../../utils/ValidatorDocument/cpf-cnpj-validator.adapter';
 import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
+import { IRejectedServiceProviderDto } from '../dto/find-one-service-provider.dto';
 import { ServiceProvider } from '../entities/service-provider.entity';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
 
@@ -15,6 +17,7 @@ export class ServiceProviderService {
     private readonly personService: PersonService,
     private readonly adpterBcrypt: AdpterBcrypt,
     private readonly documentValidator: AdpterValidatorDocument,
+    private readonly personBlockedService: PersonBlockedService,
   ) {}
   async create(values: CreateServiceProviderDto) {
     this.validtorDocument(values.cpf, values.cnpj);
@@ -66,10 +69,17 @@ export class ServiceProviderService {
     return this.serviceProviderRepository.find({ where: { approved: true } });
   }
 
-  findOne(id: string) {
-    return this.serviceProviderRepository.findOne({
+  async findOne(id: string) {
+    const serviceProvider = (await this.serviceProviderRepository.findOne({
       where: { idServiceProvider: id },
-    });
+    })) as any as IRejectedServiceProviderDto;
+    serviceProvider.isBlocked = false;
+    const personBlocked = await this.personBlockedService.getByPersonId(id);
+    if (personBlocked) {
+      serviceProvider.isBlocked = true;
+      serviceProvider.blocked = personBlocked;
+    }
+    return serviceProvider;
   }
 
   approved(idPerson: string, idApprover: string) {
