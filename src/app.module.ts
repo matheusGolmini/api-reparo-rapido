@@ -11,6 +11,7 @@ import { PersonModule } from './person/person.module';
 import { PersonBlockedModule } from './person-blocked/person-blocked.module';
 import { AddressModule } from './address/address.module';
 import { PersonAddressModule } from './person-address/person-address.module';
+import { ClientModule } from './client/client.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { PersonAddressModule } from './person-address/person-address.module';
     PersonBlockedModule,
     AddressModule,
     PersonAddressModule,
+    ClientModule,
   ],
   controllers: [AppController],
   providers: [AppService],
