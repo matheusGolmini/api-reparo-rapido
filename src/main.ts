@@ -25,6 +25,7 @@ async function bootstrap() {
     .addTag('Admin')
     .addTag('Auth')
     .addTag('Client')
+    .addTag('Skill')
     .addTag('PersonAddress')
     .build();
 
