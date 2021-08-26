@@ -5,6 +5,7 @@ import { PersonService } from '../../person/service/person.service';
 import { AdpterBcrypt } from '../../utils/Encrypeter/bcrypt.adpter';
 import { AdpterValidatorDocument } from '../../utils/ValidatorDocument/cpf-cnpj-validator.adapter';
 import { CreateServiceProviderDto } from '../dto/create-service-provider.dto';
+import { AwaitingForApprovalResponseDto } from '../dto/find-awaiting-forApprova-Response.dto';
 import { IRejectedServiceProviderDto } from '../dto/find-one-service-provider.dto';
 import { ServiceProvider } from '../entities/service-provider.entity';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
@@ -61,8 +62,13 @@ export class ServiceProviderService {
     }
   }
 
-  findWaitingForApproval(): Promise<ServiceProvider[]> {
-    return this.serviceProviderRepository.find({ where: { idApprover: null } });
+  async findWaitingForApproval(): Promise<AwaitingForApprovalResponseDto[]> {
+    const serviceProvider = await this.serviceProviderRepository.find({
+      where: { approved: false },
+    });
+    return serviceProvider.map((value) => {
+      return { ...value, status: value.idApprover ? 0 : null };
+    }) as AwaitingForApprovalResponseDto[];
   }
 
   findApproved(): Promise<ServiceProvider[]> {
