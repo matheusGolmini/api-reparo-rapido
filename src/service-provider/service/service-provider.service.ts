@@ -85,7 +85,11 @@ export class ServiceProviderService {
       serviceProvider.isBlocked = true;
       serviceProvider.blocked = personBlocked;
     }
-    return serviceProvider;
+
+    return {
+      ...serviceProvider,
+      status: serviceProvider.idApprover ? 0 : null,
+    };
   }
 
   approved(idPerson: string, idApprover: string) {
