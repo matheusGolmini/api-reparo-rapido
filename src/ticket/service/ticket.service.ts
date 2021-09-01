@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTicketDto } from '../dto/create-ticket.dto';
 import { UpdateTicketDto } from '../dto/update-ticket.dto';
+import { TicketRepository } from '../repositories';
 
 @Injectable()
 export class TicketService {
+  constructor(
+    @InjectRepository(TicketRepository)
+    private readonly repositoryTicket: TicketRepository,
+  ) {}
+
   create(createTicketDto: CreateTicketDto) {
-    return 'This action adds a new ticket';
+    return this.repositoryTicket.save(createTicketDto);
   }
 
   findAll() {
-    return `This action returns all ticket`;
+    return this.repositoryTicket.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ticket`;
+  findOne(id: string) {
+    return this.repositoryTicket.findOne({ where: { id } });
   }
 
-  update(id: number, updateTicketDto: UpdateTicketDto) {
-    return `This action updates a #${id} ticket`;
+  async update(id: string, updateTicketDto: UpdateTicketDto) {
+    const { affected } = await this.repositoryTicket.update(
+      { id },
+      updateTicketDto,
+    );
+
+    return affected === 0 ? { success: false } : { success: true };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ticket`;
+  remove(id: string) {
+    return this.repositoryTicket.softDelete({ id });
   }
 }
