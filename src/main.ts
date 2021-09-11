@@ -28,6 +28,8 @@ async function bootstrap() {
     .addTag('Skill')
     .addTag('Ticket')
     .addTag('PersonAddress')
+    .addServer('http://localhost:3001')
+    .addServer('https://api-reparo-rapido.herokuapp.com/')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
