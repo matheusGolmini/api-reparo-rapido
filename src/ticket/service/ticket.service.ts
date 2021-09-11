@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTicketDto } from '../dto/create-ticket.dto';
 import { UpdateTicketDto } from '../dto/update-ticket.dto';
-import { TicketRepository } from '../repositories';
+import { TicketRepository } from '../repositories/index';
 
 @Injectable()
 export class TicketService {
@@ -12,11 +12,12 @@ export class TicketService {
   ) {}
 
   create(createTicketDto: CreateTicketDto) {
+
     return this.repositoryTicket.save(createTicketDto);
   }
 
   findAll() {
-    return this.repositoryTicket.find();
+    return this.repositoryTicket.findInfoTicket();
   }
 
   findOne(id: string) {

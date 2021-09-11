@@ -2,7 +2,7 @@ version: '3.2'
 services:
   api:
     build: .
-    command: sh -c "yarn start:dev"
+    command: sh -c "yarn && yarn start:dev"
     environment:
       #APP
       NODE_ENV: development
