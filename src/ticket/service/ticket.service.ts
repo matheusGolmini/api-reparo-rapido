@@ -21,7 +21,7 @@ export class TicketService {
   }
 
   findOne(id: string) {
-    return this.repositoryTicket.findOne({ where: { id } });
+    return this.repositoryTicket.findInfoTicketId(id);
   }
 
   async update(id: string, updateTicketDto: UpdateTicketDto) {
