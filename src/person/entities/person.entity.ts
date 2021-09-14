@@ -34,7 +34,10 @@ export class Person extends DefaultAttributes {
   @Column({ type: 'boolean', name: 'is_admin', default: false })
   isAdmin: boolean;
 
-  @OneToMany(() => PersonBlocked, (personBlocked) => personBlocked.person)
+  @Column({ type: 'boolean', name: 'is_blocked', default: false })
+  isBlocked: boolean;
+
+  @OneToMany(() => PersonBlocked, (personBlocked) => personBlocked.person) 
   @JoinColumn({ name: 'id_person' })
   personBlocked: PersonBlocked[];
 }
