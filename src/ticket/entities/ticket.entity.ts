@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { AfterInsert, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import DefaultAttributes from '../../database/config/default.attributes';
 import { Person } from '../../person/entities/person.entity';
 
@@ -23,4 +23,7 @@ export class Ticket extends DefaultAttributes {
   @ManyToOne(() => Person)
   @JoinColumn({ name: 'id_admin' })
   idAdmin: string;
+
+  @Column('varchar',{name: 'id_html', nullable: true})
+  idHtml: string;
 }
