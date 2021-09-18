@@ -27,6 +27,7 @@ async function bootstrap() {
     .addTag('Client')
     .addTag('Skill')
     .addTag('Ticket')
+    .addTag('Contract')
     .addTag('PersonAddress')
     .addServer('http://localhost:3001')
     .addServer('https://api-reparo-rapido.herokuapp.com/')
