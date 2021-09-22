@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthService } from '../../auth/auth.service';
+import { Person } from '../../person/entities/person.entity';
 import { PersonService } from '../../person/service/person.service';
 import { TokenRepository } from '../repositories/token.repositories';
 
@@ -42,13 +43,23 @@ export class TokenService {
         objToken.email,
       );
       return this.authService.login(person);
-    } else {
-      return new HttpException(
-        {
-          errorMessage: 'invalid token',
-        },
-        HttpStatus.UNAUTHORIZED,
-      );
     }
+    return new HttpException(
+      {
+        errorMessage: 'invalid token',
+      },
+      HttpStatus.UNAUTHORIZED,
+    );
+  }
+
+  async getPersonByToken(token: string): Promise<Person | null> {
+    const objToken = await this.tokenRepository.findOne({ hash: token });
+    if (objToken) {
+      const person = await this.personService.findOnePersonByEmail(
+        objToken.email,
+      );
+      return person;
+    }
+    return null;
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, UseGuards, Request, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { LoginDto } from '../dto/login.dto';
@@ -16,5 +16,11 @@ export class AuthController {
   })
   async login(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  @Post('login-token')
+  async loginToken(@Body() data) {
+    console.log(data);
+    return this.authService.loginToken(data.token);
   }
 }

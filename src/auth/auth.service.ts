@@ -1,4 +1,10 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Person } from '../person/entities/person.entity';
 import { PersonService } from '../person/service/person.service';
@@ -38,5 +44,20 @@ export class AuthService {
       access_token: token,
       name: user.firstName,
     };
+  }
+
+  async loginToken(token: string) {
+    const person: Person | null = await this.tokenService.getPersonByToken(
+      token,
+    );
+    if (person) {
+      return this.login(person);
+    }
+    return new HttpException(
+      {
+        errorMessage: 'invalid token',
+      },
+      HttpStatus.UNAUTHORIZED,
+    );
   }
 }
