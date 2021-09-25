@@ -20,7 +20,7 @@ export class ServiceProvider {
   joinDate: Date;
 
   @Column({ name: 'image_document', type: 'varchar', nullable: true })
-  imageDocument: string;
+  imageDocument?: string;
 
   @Column({
     name: 'image_services',
@@ -28,10 +28,13 @@ export class ServiceProvider {
     array: true,
     nullable: true,
   })
-  imageServices: string[];
+  imageServices?: string[];
+
+  @Column({ name: 'account_number', type: 'varchar', nullable: true })
+  accountNumber?: string;
 
   @Column({ name: 'work_places', type: 'varchar', array: true, nullable: true })
-  workPlaces: string[];
+  workPlaces?: string[];
 
   @Column({ type: 'varchar', name: 'description_not_approved', nullable: true })
   descriptionNotApproved: string;
