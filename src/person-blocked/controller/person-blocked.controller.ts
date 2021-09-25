@@ -24,14 +24,19 @@ import { PersonService } from 'src/person/service/person.service';
 @ApiTags('PersonBlocked')
 @Controller('person-blocked')
 export class PersonBlockedController {
-  constructor(private readonly personBlockedService: PersonBlockedService, private readonly personService: PersonService) {}
+  constructor(
+    private readonly personBlockedService: PersonBlockedService,
+    private readonly personService: PersonService,
+  ) {}
 
   @Post()
   create(
     @Body() createPersonBlockedDto: CreatePersonBlockedDto,
     @Request() { user }: any,
   ) {
-    this.personService.update(createPersonBlockedDto.idPerson, {isBlocked: true});
+    this.personService.update(createPersonBlockedDto.idPerson, {
+      isBlocked: true,
+    });
     return this.personBlockedService.createBlocked(
       createPersonBlockedDto,
       user.id,
@@ -53,8 +58,13 @@ export class PersonBlockedController {
     @Body() softDeletePersonBlockedDto: SoftDeletePersonBlockedDto,
     @Request() { user }: any,
   ) {
-    this.personService.update(softDeletePersonBlockedDto.idPerson, {isBlocked: false});
-    await this.personBlockedService.softDeleteBlocked(softDeletePersonBlockedDto, user.id);
+    this.personService.update(softDeletePersonBlockedDto.idPerson, {
+      isBlocked: false,
+    });
+    await this.personBlockedService.softDeleteBlocked(
+      softDeletePersonBlockedDto,
+      user.id,
+    );
     return { message: 'Success' };
   }
 }

@@ -49,4 +49,9 @@ export class Contract extends DefaultAttributes {
 
   @Column('varchar', { name: 'id_html', nullable: true })
   idHtml: string;
+
+  public constructor(options?: Partial<Contract>) {
+    super();
+    Object.assign(this, options);
+  }
 }
