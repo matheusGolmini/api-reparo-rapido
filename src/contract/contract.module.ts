@@ -8,6 +8,5 @@ import { ContractRepo } from './repositories/contract.service.repository';
   controllers: [ContractController],
   providers: [ContractService],
   imports: [TypeOrmModule.forFeature([ContractRepo])],
-
 })
 export class ContractModule {}

@@ -19,6 +19,20 @@ export class ServiceProvider {
   @Column({ name: 'join_date', type: 'date', nullable: true })
   joinDate: Date;
 
+  @Column({ name: 'image_document', type: 'varchar', nullable: true })
+  imageDocument: string;
+
+  @Column({
+    name: 'image_services',
+    type: 'varchar',
+    array: true,
+    nullable: true,
+  })
+  imageServices: string[];
+
+  @Column({ name: 'work_places', type: 'varchar', array: true, nullable: true })
+  workPlaces: string[];
+
   @Column({ type: 'varchar', name: 'description_not_approved', nullable: true })
   descriptionNotApproved: string;
 
