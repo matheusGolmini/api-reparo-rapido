@@ -30,8 +30,9 @@ export class ContractController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.contractService.findOne(+id);
+    return this.contractService.findOne(id);
   }
+
 
   @Patch(':id')
   update(

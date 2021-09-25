@@ -21,8 +21,8 @@ export class ContractService {
     return this.repositoryContract.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contract`;
+  findOne(id: string) {
+    return this.repositoryContract.findOne({ where: { id } });
   }
 
   update(id: number, updateContractDto: UpdateContractDto) {
