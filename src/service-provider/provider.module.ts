@@ -18,5 +18,6 @@ import { PersonBlockedModule } from '../person-blocked/person-blocked.module';
     TypeOrmModule.forFeature([ServiceProviderRepository]),
   ],
   providers: [ServiceProviderService, AdpterBcrypt, AdpterValidatorDocument],
+  exports: [ServiceProviderService, TypeOrmModule],
 })
 export class ProviderModule {}

@@ -18,9 +18,17 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
+  @UseGuards(AuthGuard('local'))
+  @Post('login-provider')
+  @ApiBody({
+    type: LoginDto,
+  })
+  async loginProvider(@Request() req) {
+    return this.authService.loginProvider(req.user);
+  }
+
   @Post('login-token')
   async loginToken(@Body() data) {
-    console.log(data);
     return this.authService.loginToken(data.token);
   }
 }

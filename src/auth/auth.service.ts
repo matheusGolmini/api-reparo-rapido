@@ -8,6 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Person } from '../person/entities/person.entity';
 import { PersonService } from '../person/service/person.service';
+import { ServiceProviderService } from '../service-provider/service/service-provider.service';
 import { TokenService } from '../token/service/token.service';
 import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
 
@@ -15,6 +16,7 @@ import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
 export class AuthService {
   constructor(
     private personService: PersonService,
+    private providerService: ServiceProviderService,
     private jwtService: JwtService,
     @Inject(forwardRef(() => TokenService))
     private tokenService: TokenService,
@@ -59,5 +61,28 @@ export class AuthService {
       },
       HttpStatus.UNAUTHORIZED,
     );
+  }
+
+  async loginProvider(user: Person) {
+    await this.validateProvider(user.id);
+    const payload = { email: user.email, id: user.id };
+    const token = this.jwtService.sign(payload);
+    this.tokenService.save(token, payload.email);
+    return {
+      access_token: token,
+      name: user.firstName,
+    };
+  }
+
+  private async validateProvider(personId: string): Promise<void> {
+    const provider = await this.providerService.findOne(personId);
+    if (!provider || !provider.approved) {
+      throw new HttpException(
+        {
+          errorMessage: 'Aguarde ser aprovado para poder acessar o app',
+        },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 }
