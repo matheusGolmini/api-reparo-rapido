@@ -1,11 +1,10 @@
-import { AfterInsert, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import DefaultAttributes from '../../database/config/default.attributes';
 import { Person } from '../../person/entities/person.entity';
-import { ServiceProvider  } from '../../service-provider/entities/service-provider.entity';
+import { ServiceProvider } from '../../service-provider/entities/service-provider.entity';
 
 @Entity()
 export class Contract extends DefaultAttributes {
-
   @ManyToOne(() => Person)
   @JoinColumn({ name: 'id_person' })
   idPerson: string;
@@ -31,7 +30,7 @@ export class Contract extends DefaultAttributes {
 
   @Column('varchar')
   amountServiceProvider: string;
-  
+
   @Column('varchar')
   amountTotal: string;
 
@@ -48,7 +47,11 @@ export class Contract extends DefaultAttributes {
   @JoinColumn({ name: 'id_admin' })
   idAdmin: string;
 
-  @Column('varchar',{name: 'id_html', nullable: true})
+  @Column('varchar', { name: 'id_html', nullable: true })
   idHtml: string;
 
+  public constructor(options?: Partial<Contract>) {
+    super();
+    Object.assign(this, options);
+  }
 }

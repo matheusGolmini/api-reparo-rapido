@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
 
 export class CreatePersonDto {
   @IsString()
@@ -42,4 +42,9 @@ export class CreatePersonDto {
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
   sex: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ nullable: false })
+  imageProfile?: string;
 }

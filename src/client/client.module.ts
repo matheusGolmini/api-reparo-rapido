@@ -14,5 +14,6 @@ import { PersonBlockedModule } from '../person-blocked/person-blocked.module';
     PersonModule,
     TypeOrmModule.forFeature([ClientRepository]),
   ],
+  exports: [ClientService, TypeOrmModule],
 })
 export class ClientModule {}
