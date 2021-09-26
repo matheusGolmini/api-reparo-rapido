@@ -16,6 +16,7 @@ import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { Roles } from '../../shared/enum/roles';
 import { RolesGuard } from '../../auth/guard/roles.guard';
 import { SoftDeletePersonBlockedDto } from '../dto/soft-delete-person-blocked.dto';
+import { PersonService } from 'src/person/service/person.service';
 
 @SetMetadata('roles', [Roles.ADMIN])
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -23,13 +24,19 @@ import { SoftDeletePersonBlockedDto } from '../dto/soft-delete-person-blocked.dt
 @ApiTags('PersonBlocked')
 @Controller('person-blocked')
 export class PersonBlockedController {
-  constructor(private readonly personBlockedService: PersonBlockedService) {}
+  constructor(
+    private readonly personBlockedService: PersonBlockedService,
+    private readonly personService: PersonService,
+  ) {}
 
   @Post()
   create(
     @Body() createPersonBlockedDto: CreatePersonBlockedDto,
     @Request() { user }: any,
   ) {
+    this.personService.update(createPersonBlockedDto.idPerson, {
+      isBlocked: true,
+    });
     return this.personBlockedService.createBlocked(
       createPersonBlockedDto,
       user.id,
@@ -48,10 +55,16 @@ export class PersonBlockedController {
 
   @Delete()
   async remove(
-    @Body() idPerson: SoftDeletePersonBlockedDto,
+    @Body() softDeletePersonBlockedDto: SoftDeletePersonBlockedDto,
     @Request() { user }: any,
   ) {
-    await this.personBlockedService.softDeleteBlocked(idPerson, user.id);
+    this.personService.update(softDeletePersonBlockedDto.idPerson, {
+      isBlocked: false,
+    });
+    await this.personBlockedService.softDeleteBlocked(
+      softDeletePersonBlockedDto,
+      user.id,
+    );
     return { message: 'Success' };
   }
 }

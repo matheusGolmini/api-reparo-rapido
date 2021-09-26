@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePersonDto } from '../dto/create-person.dto';
+import { UpdatePersonDto } from '../dto/update-person.dto';
 import { Person } from '../entities/person.entity';
 import { PersonRepository } from '../repositories/person.repository';
 
@@ -26,6 +27,15 @@ export class PersonService {
       .where('person.email = :email', { email })
       .addSelect('person.password')
       .getOne();
+  }
+
+  async update(id: string, updatePersonDto: UpdatePersonDto) {
+    const { affected } = await this.personRepository.update(
+      { id },
+      updatePersonDto,
+    );
+
+    return affected === 0 ? { success: false } : { success: true };
   }
 
   async create(values: CreatePersonDto): Promise<Person> {

@@ -34,6 +34,9 @@ export class ServiceProviderService {
     return await this.serviceProviderRepository.save({
       idServiceProvider: person.id,
       cnpj: values.cnpj,
+      workPlaces: values.workPlaces,
+      imageDocument: values.imageDocument,
+      accountNumber: values.accountNumber,
     });
   }
 

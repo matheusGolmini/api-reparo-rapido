@@ -14,6 +14,8 @@ import { PersonAddressModule } from './person-address/person-address.module';
 import { ClientModule } from './client/client.module';
 import { SkillsModule } from './skill/skills.module';
 import { TicketModule } from './ticket/ticket.module';
+import { ContractModule } from './contract/contract.module';
+import { ServiceModule } from './service/service.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { TicketModule } from './ticket/ticket.module';
     ClientModule,
     SkillsModule,
     TicketModule,
+    ContractModule,
+    ServiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,50 +1,39 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class CreatePersonDto {
-  @IsString()
-  @IsNotEmpty({ message: 'This field cannot be empty.' })
-  @ApiProperty()
-  firstName: string;
-
-  @IsString()
-  @IsNotEmpty({ message: 'This field cannot be empty.' })
-  @ApiProperty()
-  lastName: string;
-
-  @IsString()
+export class CreateContractDto {
   @IsEmail()
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
-  email: string;
+  clientEmail: string;
 
   @IsString()
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
-  phone: string;
+  longDescription: string;
 
   @IsString()
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
-  password: string;
+  briefDescription: string;
 
   @IsString()
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
-  cpf: string;
+  startDate: string;
 
   @IsString()
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
-  rg: string;
+  endDate: string;
 
   @IsString()
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty()
-  sex: string;
+  amountTotal: string;
 
   @IsString()
-  @IsOptional()
-  @ApiProperty({ nullable: false })
-  imageProfile?: string;
+  @IsNotEmpty({ message: 'This field cannot be empty.' })
+  @ApiProperty()
+  agreement: string;
 }

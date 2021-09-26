@@ -26,4 +26,7 @@ export class Address extends DefaultAttributes {
 
   @Column({ type: 'varchar' })
   number: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  complement?: string;
 }

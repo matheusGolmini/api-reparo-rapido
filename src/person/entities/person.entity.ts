@@ -25,6 +25,9 @@ export class Person extends DefaultAttributes {
   @Column({ type: 'varchar' })
   rg: string;
 
+  @Column({ type: 'varchar', name: 'image_profile', nullable: false })
+  imageProfile?: string;
+
   @Column({ type: 'varchar', nullable: true })
   id_html: string;
 
@@ -33,6 +36,9 @@ export class Person extends DefaultAttributes {
 
   @Column({ type: 'boolean', name: 'is_admin', default: false })
   isAdmin: boolean;
+
+  @Column({ type: 'boolean', name: 'is_blocked', default: false })
+  isBlocked: boolean;
 
   @OneToMany(() => PersonBlocked, (personBlocked) => personBlocked.person)
   @JoinColumn({ name: 'id_person' })
