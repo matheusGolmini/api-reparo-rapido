@@ -5,10 +5,12 @@ import { PersonModule } from '../person/person.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClientRepository } from './repositories/client.repository';
 import { PersonBlockedModule } from '../person-blocked/person-blocked.module';
+import { AdpterBcrypt } from '../adapters/Encrypeter/bcrypt.adpter';
+import DriveApiAdapter from '../adapters/Upload/drive.adapter';
 
 @Module({
   controllers: [ClientController],
-  providers: [ClientService],
+  providers: [ClientService, AdpterBcrypt, DriveApiAdapter],
   imports: [
     PersonBlockedModule,
     PersonModule,

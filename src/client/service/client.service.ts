@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PersonBlockedService } from '../../person-blocked/service/person-blocked.service';
 import { PersonService } from '../../person/service/person.service';
+import { AdpterBcrypt } from '../../adapters/Encrypeter/bcrypt.adpter';
 import { CreateClientDto, IResponseClientByIdDto } from '../dto';
 import { ClientRepository } from '../repositories/client.repository';
 
@@ -12,9 +13,13 @@ export class ClientService {
     private readonly clientRepository: ClientRepository,
     private readonly personService: PersonService,
     private readonly personBlockedService: PersonBlockedService,
+    private readonly adpterBcrypt: AdpterBcrypt,
   ) {}
 
   create(createClientDto: CreateClientDto) {
+    createClientDto.password = this.adpterBcrypt.encrypt(
+      createClientDto.password,
+    );
     return this.personService.create(createClientDto);
   }
 

@@ -10,7 +10,7 @@ import { Person } from '../person/entities/person.entity';
 import { PersonService } from '../person/service/person.service';
 import { ServiceProviderService } from '../service-provider/service/service-provider.service';
 import { TokenService } from '../token/service/token.service';
-import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
+import { AdpterBcrypt } from '../adapters/Encrypeter/bcrypt.adpter';
 
 @Injectable()
 export class AuthService {
