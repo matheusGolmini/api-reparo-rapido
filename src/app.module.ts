@@ -16,6 +16,7 @@ import { SkillsModule } from './skill/skills.module';
 import { TicketModule } from './ticket/ticket.module';
 import { ContractModule } from './contract/contract.module';
 import { ServiceModule } from './service/service.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ServiceModule } from './service/service.module';
     TicketModule,
     ContractModule,
     ServiceModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

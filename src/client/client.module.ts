@@ -6,11 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClientRepository } from './repositories/client.repository';
 import { PersonBlockedModule } from '../person-blocked/person-blocked.module';
 import { AdpterBcrypt } from '../adapters/Encrypeter/bcrypt.adpter';
-import DriveApiAdapter from '../adapters/Upload/drive.adapter';
 
 @Module({
   controllers: [ClientController],
-  providers: [ClientService, AdpterBcrypt, DriveApiAdapter],
+  providers: [ClientService, AdpterBcrypt],
   imports: [
     PersonBlockedModule,
     PersonModule,
