@@ -28,3 +28,16 @@ BEGIN
 END
 $$ language plpgsql;
 
+create trigger add_id_html_ticket after insert 
+on ticket
+for each row 
+execute procedure add_id_html_ticket();
+
+create or replace function add_id_html_ticket() RETURNS trigger AS $$
+BEGIN
+    update ticket 
+        set id_html = concat('<a class=codigo value=',new.id,'>Visualizar</a>')
+    where ticket.id = new.id;
+    return new;
+END
+
