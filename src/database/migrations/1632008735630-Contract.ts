@@ -5,7 +5,7 @@ export class Contract1632008735630 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "contract" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP WITH TIME ZONE, "approved" boolean NOT NULL, "longDescription" varchar NOT NULL, "briefDescription" varchar NOT NULL, "startDate" varchar NOT NULL, "endDate" varchar NOT NULL, "amountServiceProvider" varchar NOT NULL, "amountTotal" varchar NOT NULL, "amountApp" varchar NOT NULL, "agreement" varchar NOT NULL, "link" varchar NOT NULL, "id_html" varchar, "id_person" uuid, "id_service_provider" uuid, "id_admin" uuid, CONSTRAINT "PK_17c3a89f58a2997276084e706e8" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "contract" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP WITH TIME ZONE, "approved" boolean NOT NULL, "longDescription" varchar NOT NULL, "briefDescription" varchar NOT NULL, "startDate" varchar NOT NULL, "endDate" varchar NOT NULL, "amountServiceProvider" varchar NOT NULL, "amountTotal" varchar NOT NULL, "amountApp" varchar NOT NULL, "agreement" varchar NOT NULL, "link" varchar NOT NULL, "id_html" varchar, "id_person" uuid, "id_service_provider" uuid, "status" varchar, "id_admin" uuid, CONSTRAINT "PK_17c3a89f58a2997276084e706e8" PRIMARY KEY ("id"))`,
     );
 
     await queryRunner.query(

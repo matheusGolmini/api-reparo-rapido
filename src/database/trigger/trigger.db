@@ -41,3 +41,4 @@ BEGIN
     return new;
 END
 
+ALTER TABLE contract ADD COLUMN status varchar
