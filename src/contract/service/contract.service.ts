@@ -39,8 +39,13 @@ export class ContractService {
     return this.repositoryContract.findOne({ where: { id } });
   }
 
-  update(id: number, updateContractDto: UpdateContractDto) {
-    return `This action updates a #${id} contract`;
+  async update(id: string, updateContractDto: UpdateContractDto) {
+    const { affected } = await this.repositoryContract.update(
+      { id },
+      updateContractDto,
+    );
+
+    return affected === 0 ? { success: false } : { success: true };
   }
 
   remove(id: number) {

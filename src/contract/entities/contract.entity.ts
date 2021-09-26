@@ -43,6 +43,9 @@ export class Contract extends DefaultAttributes {
   @Column('varchar')
   link: string;
 
+  @Column('varchar')
+  status: string;
+
   @ManyToOne(() => Person)
   @JoinColumn({ name: 'id_admin' })
   idAdmin: string;
