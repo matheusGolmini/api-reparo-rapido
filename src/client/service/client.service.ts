@@ -50,6 +50,10 @@ export class ClientService {
   }
 
   async upadate(id: string, data: UpdateClientDto): Promise<void> {
+    if (data.password) {
+      data.password = this.adpterBcrypt.encrypt(data.password);
+    }
+
     const { affected } = await this.clientRepository.update(id, data);
 
     if (affected === 0) {

@@ -56,8 +56,8 @@ export class TokenService {
   async getPersonByToken(token: string): Promise<Person | null> {
     const objToken = await this.tokenRepository.findOne({ hash: token });
     if (objToken) {
-      const person = await this.personService.findOnePersonByEmail(
-        objToken.email,
+      const person = await this.personService.findOnePersonById(
+        objToken.idPerson,
       );
       return person;
     }
