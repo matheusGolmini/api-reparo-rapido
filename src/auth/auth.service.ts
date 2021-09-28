@@ -41,10 +41,10 @@ export class AuthService {
   async login(user: Person) {
     const payload = { email: user.email, id: user.id };
     const token = this.jwtService.sign(payload);
-    this.tokenService.save(token, payload.email);
+    this.tokenService.save(token, payload.email, user.id);
     return {
       access_token: token,
-      name: user.firstName,
+      person: user,
     };
   }
 
@@ -67,10 +67,10 @@ export class AuthService {
     await this.validateProvider(user.id);
     const payload = { email: user.email, id: user.id };
     const token = this.jwtService.sign(payload);
-    this.tokenService.save(token, payload.email);
+    this.tokenService.save(token, payload.email, user.id);
     return {
       access_token: token,
-      name: user.firstName,
+      person: user,
     };
   }
 

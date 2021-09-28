@@ -8,4 +8,7 @@ export class Token extends DefaultAttributes {
 
   @Column({ type: 'varchar', length: 100 })
   email: string;
+
+  @Column({ type: 'uuid' })
+  idPerson: string;
 }
