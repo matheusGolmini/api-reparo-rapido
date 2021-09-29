@@ -21,18 +21,19 @@ export class TokenService {
     private authService: AuthService,
   ) {}
 
-  async save(hash: string, username: string) {
-    const objToken = await this.tokenRepository.findOne({ email: username });
+  async save(hash: string, username: string, idPerson: string) {
+    const objToken = await this.tokenRepository.findOne({ idPerson });
     if (objToken) {
       this.tokenRepository.update(objToken.id, {
         hash,
       });
       return;
     }
-    console.log('username: ', username);
+
     this.tokenRepository.insert({
       hash,
       email: username,
+      idPerson,
     });
   }
 
@@ -55,8 +56,8 @@ export class TokenService {
   async getPersonByToken(token: string): Promise<Person | null> {
     const objToken = await this.tokenRepository.findOne({ hash: token });
     if (objToken) {
-      const person = await this.personService.findOnePersonByEmail(
-        objToken.email,
+      const person = await this.personService.findOnePersonById(
+        objToken.idPerson,
       );
       return person;
     }

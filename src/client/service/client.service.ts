@@ -1,8 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PersonBlockedService } from '../../person-blocked/service/person-blocked.service';
 import { PersonService } from '../../person/service/person.service';
-import { CreateClientDto, IResponseClientByIdDto } from '../dto';
+import { AdpterBcrypt } from '../../adapters/Encrypeter/bcrypt.adpter';
+import {
+  CreateClientDto,
+  IResponseClientByIdDto,
+  UpdateClientDto,
+} from '../dto';
 import { ClientRepository } from '../repositories/client.repository';
 
 @Injectable()
@@ -12,9 +17,13 @@ export class ClientService {
     private readonly clientRepository: ClientRepository,
     private readonly personService: PersonService,
     private readonly personBlockedService: PersonBlockedService,
+    private readonly adpterBcrypt: AdpterBcrypt,
   ) {}
 
   create(createClientDto: CreateClientDto) {
+    createClientDto.password = this.adpterBcrypt.encrypt(
+      createClientDto.password,
+    );
     return this.personService.create(createClientDto);
   }
 
@@ -38,5 +47,20 @@ export class ClientService {
 
   getAll() {
     return this.clientRepository.findAllClient();
+  }
+
+  async upadate(id: string, data: UpdateClientDto): Promise<void> {
+    if (data.password) {
+      data.password = this.adpterBcrypt.encrypt(data.password);
+    }
+
+    const { affected } = await this.clientRepository.update(id, data);
+
+    if (affected === 0) {
+      throw new HttpException(
+        'Id informado para fazer atualização não foi encontrado',
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }
