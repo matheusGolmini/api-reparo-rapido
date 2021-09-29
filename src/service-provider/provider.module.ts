@@ -5,8 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { ServiceProviderRepository } from './repositories/service-provider.repository';
 import { PersonModule } from '../person/person.module';
-import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
-import { AdpterValidatorDocument } from '../utils/ValidatorDocument/cpf-cnpj-validator.adapter';
+import { AdpterBcrypt } from '../adapters/Encrypeter/bcrypt.adpter';
+import { AdpterValidatorDocument } from '../adapters/ValidatorDocument/cpf-cnpj-validator.adapter';
 import { PersonBlockedModule } from '../person-blocked/person-blocked.module';
 
 @Module({
