@@ -9,5 +9,13 @@ export class TicketRepository extends Repository<Ticket> {
         inner join person p on t.id_person = p.id 
     `);
     }
+
+    findInfoTicketId(id){
+        return this.query(`
+        select t.*,p.email,p.phone,p.first_name,p.last_name from ticket t
+        inner join person p on t.id_person = p.id 
+        where t.id = '`+id+`'`
+       );
+    }
 }
 

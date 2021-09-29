@@ -4,7 +4,7 @@ import { AdminController } from './controller/admin.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminRepository } from './repositories/admin.repository';
 import { PersonModule } from '../person/person.module';
-import { AdpterBcrypt } from '../utils/Encrypeter/bcrypt.adpter';
+import { AdpterBcrypt } from '../adapters/Encrypeter/bcrypt.adpter';
 
 @Module({
   controllers: [AdminController],

@@ -1,9 +1,22 @@
-import { Controller, Post, Body, UseGuards, Param, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Param,
+  Get,
+  Patch,
+} from '@nestjs/common';
 import { ClientService } from '../service/client.service';
 
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
-import { GetByEmailClientDto, GetByIdClientDto, CreateClientDto } from '../dto';
+import {
+  GetByEmailClientDto,
+  GetByIdClientDto,
+  CreateClientDto,
+  UpdateClientDto,
+} from '../dto';
 
 @ApiTags('Client')
 @Controller('client')
@@ -34,5 +47,12 @@ export class ClientController {
   @Get()
   getAll() {
     return this.clientService.getAll();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':id')
+  upadate(@Param('id') id: string, @Body() data: UpdateClientDto) {
+    return this.clientService.upadate(id, data);
   }
 }
