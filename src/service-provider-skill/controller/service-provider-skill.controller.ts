@@ -1,15 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ServiceProviderSkillService } from '../service/service-provider-skill.service';
 import { CreateServiceProviderSkillDto } from '../dto/create-service-provider-skill.dto';
 import { UpdateServiceProviderSkillDto } from '../dto/update-service-provider-skill.dto';
 
 @Controller('service-provider-skill')
 export class ServiceProviderSkillController {
-  constructor(private readonly serviceProviderSkillService: ServiceProviderSkillService) {}
+  constructor(
+    private readonly serviceProviderSkillService: ServiceProviderSkillService,
+  ) {}
 
   @Post()
   create(@Body() createServiceProviderSkillDto: CreateServiceProviderSkillDto) {
-    return this.serviceProviderSkillService.create(createServiceProviderSkillDto);
+    return this.serviceProviderSkillService.create(
+      createServiceProviderSkillDto,
+    );
   }
 
   @Get(':id')
@@ -23,8 +35,14 @@ export class ServiceProviderSkillController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServiceProviderSkillDto: UpdateServiceProviderSkillDto) {
-    return this.serviceProviderSkillService.update(id, updateServiceProviderSkillDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateServiceProviderSkillDto: UpdateServiceProviderSkillDto,
+  ) {
+    return this.serviceProviderSkillService.update(
+      id,
+      updateServiceProviderSkillDto,
+    );
   }
 
   @Delete(':id')
