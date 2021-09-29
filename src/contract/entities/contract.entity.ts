@@ -5,13 +5,19 @@ import { ServiceProvider } from '../../service-provider/entities/service-provide
 
 @Entity()
 export class Contract extends DefaultAttributes {
+  @Column('varchar',{name :'id_person'})
+  idPerson: string;
+
+  @Column('varchar',{name :'id_service_provider'})
+  idProvider: string;
+
   @ManyToOne(() => Person)
   @JoinColumn({ name: 'id_person' })
-  idPerson: string;
+  Person: string;
 
   @ManyToOne(() => ServiceProvider)
   @JoinColumn({ name: 'id_service_provider' })
-  idProvider: string;
+  Provider: string;
 
   @Column('boolean')
   approved: boolean;

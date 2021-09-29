@@ -24,7 +24,7 @@ export class ContractService {
         createContract.amountTotal,
       ),
       approved: false,
-      idPerson: client.id,
+      Person: client.id,
       link: '',
       idProvider,
     });
