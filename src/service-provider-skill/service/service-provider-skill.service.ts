@@ -8,7 +8,7 @@ import { ServiceProviderSkillRepository } from '../repositories/service-provider
 export class ServiceProviderSkillService {
   constructor(
     @InjectRepository(ServiceProviderSkillRepository)
-    private readonly serviceProviderSkillRepository: ServiceProviderSkillRepository
+    private readonly serviceProviderSkillRepository: ServiceProviderSkillRepository,
   ) {}
 
   async create(values: CreateServiceProviderSkillDto) {
