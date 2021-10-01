@@ -22,4 +22,9 @@ export class CreateServiceProviderDto extends CreatePersonDto {
   @IsNotEmpty({ message: 'This field cannot be empty.' })
   @ApiProperty({ example: ['Curitiba'], type: 'array' })
   workPlaces: string[];
+
+  @IsString()
+  @IsNotEmpty({ message: 'This field cannot be empty.' })
+  @ApiProperty({ example: 'Pintor' })
+  skillSelected: string;
 }

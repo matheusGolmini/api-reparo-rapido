@@ -8,5 +8,6 @@ import { ServiceProviderSkillRepository } from './repositories/service-provider-
   controllers: [ServiceProviderSkillController],
   providers: [ServiceProviderSkillService],
   imports: [TypeOrmModule.forFeature([ServiceProviderSkillRepository])],
+  exports: [ServiceProviderSkillService, TypeOrmModule],
 })
 export class ServiceProviderSkillModule {}

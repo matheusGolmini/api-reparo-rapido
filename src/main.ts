@@ -28,6 +28,7 @@ async function bootstrap() {
     .addTag('Skill')
     .addTag('Ticket')
     .addTag('Contract')
+    .addTag('ServiceProviderSkill')
     .addTag('PersonAddress')
     .addTag('Upload')
     .addServer('http://localhost:3001')

@@ -9,6 +9,8 @@ import { AwaitingForApprovalResponseDto } from '../dto/find-awaiting-forApprova-
 import { IRejectedServiceProviderDto } from '../dto/find-one-service-provider.dto';
 import { ServiceProvider } from '../entities/service-provider.entity';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
+import { ServiceProviderSkillService } from '../../service-provider-skill/service/service-provider-skill.service';
+import { SkillsService } from '../../skill/service/skill.service';
 
 @Injectable()
 export class ServiceProviderService {
@@ -19,6 +21,8 @@ export class ServiceProviderService {
     private readonly adpterBcrypt: AdpterBcrypt,
     private readonly documentValidator: AdpterValidatorDocument,
     private readonly personBlockedService: PersonBlockedService,
+    private readonly skillService: SkillsService,
+    private readonly serviceProviderSkillService: ServiceProviderSkillService,
   ) {}
   async create(values: CreateServiceProviderDto) {
     this.validtorDocument(values.cpf, values.cnpj);
@@ -31,12 +35,27 @@ export class ServiceProviderService {
       person = await this.personService.create(values);
     }
 
-    return await this.serviceProviderRepository.save({
+    const serviceProvider = await this.serviceProviderRepository.save({
       idServiceProvider: person.id,
       cnpj: values.cnpj,
       workPlaces: values.workPlaces,
       imageDocument: values.imageDocument,
       accountNumber: values.accountNumber,
+    });
+    this.createServiceProviderSkill(serviceProvider, values.skillSelected);
+    return serviceProvider;
+  }
+
+  private async createServiceProviderSkill(
+    serviceProvider: ServiceProvider,
+    skillSelected: string,
+  ): Promise<void> {
+    const skill = await this.skillService.findOneByName(skillSelected);
+    this.serviceProviderSkillService.create({
+      additionalInfo: 'skill criada',
+      idSkill: skill.id,
+      idServiceProvider: serviceProvider.idServiceProvider,
+      startDate: new Date(),
     });
   }
 

@@ -15,7 +15,6 @@ import { ClientModule } from './client/client.module';
 import { SkillsModule } from './skill/skills.module';
 import { TicketModule } from './ticket/ticket.module';
 import { ContractModule } from './contract/contract.module';
-import { ServiceModule } from './service/service.module';
 import { ServiceProviderSkillModule } from './service-provider-skill/service-provider-skill.module';
 import { UploadModule } from './upload/upload.module';
 
@@ -34,7 +33,6 @@ import { UploadModule } from './upload/upload.module';
     SkillsModule,
     TicketModule,
     ContractModule,
-    ServiceModule,
     ServiceProviderSkillModule,
     UploadModule,
   ],

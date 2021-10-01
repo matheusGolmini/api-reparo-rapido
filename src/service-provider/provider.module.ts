@@ -8,6 +8,8 @@ import { PersonModule } from '../person/person.module';
 import { AdpterBcrypt } from '../adapters/Encrypeter/bcrypt.adpter';
 import { AdpterValidatorDocument } from '../adapters/ValidatorDocument/cpf-cnpj-validator.adapter';
 import { PersonBlockedModule } from '../person-blocked/person-blocked.module';
+import { SkillsModule } from '../skill/skills.module';
+import { ServiceProviderSkillModule } from '../service-provider-skill/service-provider-skill.module';
 
 @Module({
   controllers: [ServiceProviderController],
@@ -15,6 +17,8 @@ import { PersonBlockedModule } from '../person-blocked/person-blocked.module';
     AuthModule,
     PersonModule,
     PersonBlockedModule,
+    SkillsModule,
+    ServiceProviderSkillModule,
     TypeOrmModule.forFeature([ServiceProviderRepository]),
   ],
   providers: [ServiceProviderService, AdpterBcrypt, AdpterValidatorDocument],

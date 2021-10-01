@@ -23,6 +23,10 @@ export class SkillsService {
     return this.skillRepository.findOne({ where: { id } });
   }
 
+  findOneByName(skillName: string) {
+    return this.skillRepository.findOne({ where: { name: skillName } });
+  }
+
   async update(id: string, updateSkillDto: UpdateSkillDto) {
     const { affected } = await this.skillRepository.update(
       { id },
