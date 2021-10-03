@@ -5,7 +5,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CreateContractDto } from './create-contract.dto';
 
 export class UpdateContractDto {
-    @IsBoolean()
     @IsNotEmpty({ message: 'This field cannot be empty.' })
     @ApiProperty()
     approved: boolean;
@@ -19,4 +18,9 @@ export class UpdateContractDto {
     @IsNotEmpty({ message: 'This field cannot be empty.' })
     @ApiProperty()
     status:string
+
+    @IsString()
+    @ApiProperty()
+    pago:string
+
 }

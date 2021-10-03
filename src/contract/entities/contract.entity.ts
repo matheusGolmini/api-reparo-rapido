@@ -22,6 +22,9 @@ export class Contract extends DefaultAttributes {
   @Column('boolean')
   approved: boolean;
 
+  @Column('boolean')
+  pago: string;
+
   @Column('varchar')
   longDescription: string;
 
