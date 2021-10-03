@@ -12,6 +12,11 @@ services:
       POSTGRES_USER: reparo_rapido
       POSTGRES_PASSWORD: reparo_rapido
       POSTGRES_PORT: 5432
+      #AWS
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      BUCKET_NAME: ${BUCKET_NAME}
     depends_on:
       - db_local
     volumes:

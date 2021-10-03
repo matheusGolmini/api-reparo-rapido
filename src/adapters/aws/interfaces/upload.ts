@@ -1,4 +1,4 @@
 export interface IUploadResponse {
-  webContentLink: string;
   webViewLink: string;
+  webContentLink: string;
 }

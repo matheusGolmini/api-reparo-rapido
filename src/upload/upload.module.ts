@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { UploadService } from './service/upload.service';
 import { UploadController } from './controller/upload.controller';
-import DriveApiAdapter from '../adapters/Upload/drive.adapter';
+import { AwsAdapter } from '../adapters/aws/aws';
 
 @Module({
   controllers: [UploadController],
-  providers: [UploadService, DriveApiAdapter],
+  providers: [UploadService, AwsAdapter],
 })
 export class UploadModule {}
