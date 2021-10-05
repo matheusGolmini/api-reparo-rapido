@@ -24,9 +24,10 @@ export class ContractService {
         createContract.amountTotal,
       ),
       approved: false,
-      Person: client.id,
+      idPerson: client.id,
       link: '',
       idProvider,
+      status: 'Esperando Aprovação',
     });
     return this.repositoryContract.save(contract);
   }

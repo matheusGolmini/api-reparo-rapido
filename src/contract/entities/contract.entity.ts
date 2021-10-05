@@ -5,10 +5,10 @@ import { ServiceProvider } from '../../service-provider/entities/service-provide
 
 @Entity()
 export class Contract extends DefaultAttributes {
-  @Column('varchar',{name :'id_person'})
+  @Column('varchar', { name: 'id_person' })
   idPerson: string;
 
-  @Column('varchar',{name :'id_service_provider'})
+  @Column('varchar', { name: 'id_service_provider' })
   idProvider: string;
 
   @ManyToOne(() => Person)
