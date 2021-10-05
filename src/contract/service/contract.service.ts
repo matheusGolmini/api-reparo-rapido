@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClientService } from '../../client/service/client.service';
+import { ContractStatus } from '../../enum/status';
 import { Person } from '../../person/entities/person.entity';
 import { CreateContractDto } from '../dto/create-contract.dto';
 import { UpdateContractDto } from '../dto/update-contract.dto';
@@ -27,13 +28,34 @@ export class ContractService {
       idPerson: client.id,
       link: '',
       idProvider,
-      status: 'Esperando Aprovação',
+      status: ContractStatus.ESPERANDO_APROVACAO,
     });
     return this.repositoryContract.save(contract);
   }
 
   findAll() {
     return this.repositoryContract.find();
+  }
+
+  findAllContractClientByStatusAndPersonId(idPerson: string, status: string) {
+    return this.repositoryContract.find({
+      where: {
+        idPerson,
+        status,
+      },
+    });
+  }
+
+  findAllContractProviderByStatusAndPoviderId(
+    idProvider: string,
+    status: string,
+  ) {
+    return this.repositoryContract.find({
+      where: {
+        idProvider,
+        status,
+      },
+    });
   }
 
   findOne(id: string) {

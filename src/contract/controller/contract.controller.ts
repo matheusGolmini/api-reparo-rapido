@@ -14,6 +14,7 @@ import { CreateContractDto } from '../dto/create-contract.dto';
 import { UpdateContractDto } from '../dto/update-contract.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { ContractStatus } from '../../enum/status';
 
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
@@ -33,6 +34,54 @@ export class ContractController {
   @Get()
   findAll() {
     return this.contractService.findAll();
+  }
+
+  @Get('provider/waiting-signatures')
+  findaAllWaitingForSignaturesProvider(@Request() { user }: any) {
+    return this.contractService.findAllContractProviderByStatusAndPoviderId(
+      user.id,
+      ContractStatus.ESPERANDO_ASSINATURA,
+    );
+  }
+
+  @Get('provider/in-progress')
+  findAllInProgressProvider(@Request() { user }: any) {
+    return this.contractService.findAllContractProviderByStatusAndPoviderId(
+      user.id,
+      ContractStatus.EM_ANDAMENTO,
+    );
+  }
+
+  @Get('provider/finished')
+  findAllFinishedProvider(@Request() { user }: any) {
+    return this.contractService.findAllContractProviderByStatusAndPoviderId(
+      user.id,
+      ContractStatus.FINALIZADO,
+    );
+  }
+
+  @Get('client/waiting-payment')
+  findaAllWaitingForPaymentClient(@Request() { user }: any) {
+    return this.contractService.findAllContractClientByStatusAndPersonId(
+      user.id,
+      ContractStatus.ESPERANDO_PAGAMENTO,
+    );
+  }
+
+  @Get('client/in-progress')
+  findAllInProgressClient(@Request() { user }: any) {
+    return this.contractService.findAllContractClientByStatusAndPersonId(
+      user.id,
+      ContractStatus.EM_ANDAMENTO,
+    );
+  }
+
+  @Get('client/finished')
+  findAllFinishedClient(@Request() { user }: any) {
+    return this.contractService.findAllContractClientByStatusAndPersonId(
+      user.id,
+      ContractStatus.FINALIZADO,
+    );
   }
 
   @Get(':id')
