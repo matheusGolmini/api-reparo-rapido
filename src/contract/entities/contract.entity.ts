@@ -11,11 +11,11 @@ export class Contract extends DefaultAttributes {
   @Column('varchar', { name: 'id_service_provider' })
   idProvider: string;
 
-  @ManyToOne(() => Person)
+  @ManyToOne(() => Person, { eager: true })
   @JoinColumn({ name: 'id_person' })
   Person: string;
 
-  @ManyToOne(() => ServiceProvider)
+  @ManyToOne(() => ServiceProvider, { eager: true })
   @JoinColumn({ name: 'id_service_provider' })
   Provider: string;
 
