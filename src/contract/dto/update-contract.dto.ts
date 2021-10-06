@@ -20,4 +20,8 @@ export class UpdateContractDto {
   @IsString()
   @ApiProperty()
   pago?: string;
+
+  @IsOptional()
+  @ApiProperty()
+  terminatedServiceProvider?: boolean;
 }

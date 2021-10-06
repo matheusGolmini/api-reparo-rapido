@@ -42,6 +42,7 @@ export class ContractService {
       where: {
         idPerson,
         status,
+        approved: true,
       },
     });
   }
@@ -54,6 +55,7 @@ export class ContractService {
       where: {
         idProvider,
         status,
+        approved: true,
       },
     });
   }

@@ -22,6 +22,9 @@ export class Contract extends DefaultAttributes {
   @Column('boolean')
   approved: boolean;
 
+  @Column('boolean', { name: 'terminated_service_provider' })
+  terminatedServiceProvider: boolean;
+
   @Column('boolean')
   pago: string;
 
