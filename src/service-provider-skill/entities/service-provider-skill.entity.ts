@@ -17,13 +17,17 @@ export class ServiceProviderSkill extends DefaultAttributes {
   @Column({ type: 'uuid', name: 'id_service_provider' })
   idServiceProvider: string;
 
-  @ManyToOne(() => Skill, (skill) => skill.id)
+  @ManyToOne(() => Skill, (skill) => skill.id, { eager: true })
   @JoinColumn({
     name: 'id_skill',
   })
   skill: Skill;
 
-  @ManyToOne(() => ServiceProvider, (serviceProvider) => serviceProvider.person)
+  @ManyToOne(
+    () => ServiceProvider,
+    (serviceProvider) => serviceProvider.person,
+    { eager: true },
+  )
   @JoinColumn({
     name: 'id_service_provider',
   })

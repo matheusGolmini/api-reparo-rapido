@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { ServiceProviderSkillService } from '../service/service-provider-skill.service';
 import { CreateServiceProviderSkillDto } from '../dto/create-service-provider-skill.dto';
@@ -37,9 +38,22 @@ export class ServiceProviderSkillController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Get(':id')
-  findAllByServiceProvider(@Param('serviceProviderId') id: string) {
-    return this.serviceProviderSkillService.findByServiceProviderId(id);
+  @Get()
+  geAll() {
+    return this.serviceProviderSkillService.find();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('/skills/:skillId')
+  async getServicesProvidersBySkillIdAndAddress(
+    @Param('skillId') skillId: string,
+    @Request() req,
+  ) {
+    return await this.serviceProviderSkillService.getServicesProvidersBySkillIdAndAddress(
+      skillId,
+      req.user.id,
+    );
   }
 
   @UseGuards(JwtAuthGuard)

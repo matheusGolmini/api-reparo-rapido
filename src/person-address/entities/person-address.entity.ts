@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Address } from '../../address/entities/address.entity';
 import { Person } from '../../person/entities/person.entity';
 
@@ -8,7 +8,10 @@ export class PersonAddress {
   @JoinColumn({ name: 'id_person' })
   idPerson: string;
 
+  @Column({ name: 'id_address' })
+  idAddress: string;
+
   @ManyToOne(() => Address, { primary: true, eager: true })
   @JoinColumn({ name: 'id_address' })
-  idAddress: string;
+  Address: Address;
 }

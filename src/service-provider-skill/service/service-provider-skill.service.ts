@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PersonAddressService } from '../../person-address/service/person-address.service';
 import { CreateServiceProviderSkillDto } from '../dto/create-service-provider-skill.dto';
 import { UpdateServiceProviderSkillDto } from '../dto/update-service-provider-skill.dto';
 import { ServiceProviderSkillRepository } from '../repositories/service-provider-skill.repository';
@@ -9,6 +10,7 @@ export class ServiceProviderSkillService {
   constructor(
     @InjectRepository(ServiceProviderSkillRepository)
     private readonly serviceProviderSkillRepository: ServiceProviderSkillRepository,
+    private readonly personAddressService: PersonAddressService,
   ) {}
 
   async create(values: CreateServiceProviderSkillDto) {
@@ -19,6 +21,32 @@ export class ServiceProviderSkillService {
     return await this.serviceProviderSkillRepository.findOne({
       where: { id: id },
     });
+  }
+
+  async find() {
+    return await this.serviceProviderSkillRepository.find();
+  }
+
+  async getServicesProvidersBySkillIdAndAddress(
+    skillId: string,
+    clientId: string,
+  ) {
+    //Talvez tenha que filtrar por endereço default
+    const addressPromise = this.personAddressService.getByIdPerson(clientId);
+    const serviceSkillsPromise = this.serviceProviderSkillRepository.find({
+      where: {
+        idSkill: skillId,
+      },
+    });
+
+    const [address, serviceSkills] = await Promise.all([
+      addressPromise,
+      serviceSkillsPromise,
+    ]);
+
+    return serviceSkills.filter((value) =>
+      value.serviceProvider.workPlaces.includes(address[0].Address.city),
+    );
   }
 
   async findByServiceProviderId(id: string) {
