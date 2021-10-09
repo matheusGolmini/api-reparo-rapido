@@ -38,6 +38,15 @@ export class ServiceProviderSkillController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @Get('service-provider/:serviceProviderId')
+  findOneByPerson(@Param('serviceProviderId') serviceProviderId: string) {
+    return this.serviceProviderSkillService.findOneByServiceProvider(
+      serviceProviderId,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   geAll() {
     return this.serviceProviderSkillService.find();

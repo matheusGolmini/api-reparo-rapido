@@ -23,6 +23,12 @@ export class ServiceProviderSkillService {
     });
   }
 
+  async findOneByServiceProvider(id: string) {
+    return await this.serviceProviderSkillRepository.findOne({
+      where: { idServiceProvider: id },
+    });
+  }
+
   async find() {
     return await this.serviceProviderSkillRepository.find();
   }
