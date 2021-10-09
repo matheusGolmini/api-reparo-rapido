@@ -27,6 +27,7 @@ export class AuthService {
     const person = await this.personService.findOneLogin(email);
 
     if (
+      person?.personBlocked &&
       person.personBlocked.length === 0 &&
       person &&
       this.adpterBcrypt.compare(pass, person.password)

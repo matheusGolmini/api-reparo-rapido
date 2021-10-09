@@ -1,7 +1,7 @@
 import DefaultAttributes from 'src/database/config/default.attributes';
 import { ServiceProvider } from 'src/service-provider/entities/service-provider.entity';
 import { Skill } from 'src/skill/entities/skill.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class ServiceProviderSkill extends DefaultAttributes {
@@ -17,13 +17,17 @@ export class ServiceProviderSkill extends DefaultAttributes {
   @Column({ type: 'uuid', name: 'id_service_provider' })
   idServiceProvider: string;
 
-  @ManyToOne(() => Skill, (skill) => skill.id)
+  @ManyToOne(() => Skill, (skill) => skill.id, { eager: true })
   @JoinColumn({
     name: 'id_skill',
   })
   skill: Skill;
 
-  @ManyToOne(() => ServiceProvider, (serviceProvider) => serviceProvider.person)
+  @ManyToOne(
+    () => ServiceProvider,
+    (serviceProvider) => serviceProvider.person,
+    { eager: true },
+  )
   @JoinColumn({
     name: 'id_service_provider',
   })
