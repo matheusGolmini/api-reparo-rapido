@@ -57,7 +57,7 @@ export class ContractService {
         s."name" as skillName, 
         s.id as skillId, 
         s.image_url as skillImage,
-        p.id as serrviceProviderId,
+        p.id as serviceProviderId,
         p.first_name as firstName,
         p.phone,
         p.image_profile as imageProfile,
