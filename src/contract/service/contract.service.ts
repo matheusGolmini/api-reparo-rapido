@@ -53,14 +53,14 @@ export class ContractService {
   ) {
     return this.repositoryContract.query(
       `
-        select 
-        s."name" as skillName, 
-        s.id as skillId, 
-        s.image_url as skillImage,
-        p.id as serviceProviderId,
-        p.first_name as firstName,
+      select 
+        s."name" as "skillName", 
+        s.id as "skillId", 
+        s.image_url as "skillImage",
+        p.id as "serviceProviderId",
+        p.first_name as "firstName",
         p.phone,
-        p.image_profile as imageProfile,
+        p.image_profile as "imageProfile",
         c.*
           from contract c 
         join person p on p.id = c.id_service_provider 
