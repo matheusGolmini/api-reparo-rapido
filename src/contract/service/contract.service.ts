@@ -37,14 +37,41 @@ export class ContractService {
     return this.repositoryContract.find();
   }
 
-  findAllContractClientByStatusAndPersonId(idPerson: string, status: string) {
-    return this.repositoryContract.find({
-      where: {
-        idPerson,
-        status,
-        approved: true,
-      },
-    });
+  // findAllContractClientByStatusAndPersonId(idPerson: string, status: string) {
+  //   return this.repositoryContract.find({
+  //     where: {
+  //       idPerson,
+  //       status,
+  //       approved: true,
+  //     },
+  //   });
+  // }
+
+  findAllContractClientByStatusAndPersonIdQuery(
+    idPerson: string,
+    status: string,
+  ) {
+    return this.repositoryContract.query(
+      `
+        select 
+        s."name" as skillName, 
+        s.id as skillId, 
+        s.image_url as skillImage,
+        p.id as serrviceProviderId,
+        p.first_name as firstName,
+        p.phone,
+        p.image_profile as imageProfile,
+        c.*
+          from contract c 
+        join person p on p.id = c.id_service_provider 
+        join service_provider_skill sps on sps.id_service_provider = p.id 
+        join skill s on s.id = sps.id_skill 
+          where c.id_person = $1
+        and c.status = $2
+        and c.approved = true;
+      `,
+      [idPerson, status],
+    );
   }
 
   findAllContractProviderByStatusAndPoviderId(

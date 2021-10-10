@@ -62,7 +62,7 @@ export class ContractController {
 
   @Get('client/waiting-payment')
   findaAllWaitingForPaymentClient(@Request() { user }: any) {
-    return this.contractService.findAllContractClientByStatusAndPersonId(
+    return this.contractService.findAllContractClientByStatusAndPersonIdQuery(
       user.id,
       ContractStatus.ESPERANDO_PAGAMENTO,
     );
@@ -70,7 +70,7 @@ export class ContractController {
 
   @Get('client/in-progress')
   findAllInProgressClient(@Request() { user }: any) {
-    return this.contractService.findAllContractClientByStatusAndPersonId(
+    return this.contractService.findAllContractClientByStatusAndPersonIdQuery(
       user.id,
       ContractStatus.EM_ANDAMENTO,
     );
@@ -78,7 +78,7 @@ export class ContractController {
 
   @Get('client/finished')
   findAllFinishedClient(@Request() { user }: any) {
-    return this.contractService.findAllContractClientByStatusAndPersonId(
+    return this.contractService.findAllContractClientByStatusAndPersonIdQuery(
       user.id,
       ContractStatus.FINALIZADO,
     );
