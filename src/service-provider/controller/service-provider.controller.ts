@@ -16,6 +16,7 @@ import { Roles } from '../../shared/enum/roles';
 import { RolesGuard } from '../../auth/guard/roles.guard';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { RejectedServiceProviderDto } from '../dto/rejected-service-provider';
+import { UpdateServiceProviderDto } from '../dto/update-servicec-provider.dto';
 
 @ApiTags('Provider')
 @Controller('provider')
@@ -48,6 +49,17 @@ export class ServiceProviderController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.providerService.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateProviderDto: UpdateServiceProviderDto,
+  ) {
+    await this.providerService.update(id, updateProviderDto);
+    return { message: 'Success' };
   }
 
   @SetMetadata('roles', [Roles.ADMIN])

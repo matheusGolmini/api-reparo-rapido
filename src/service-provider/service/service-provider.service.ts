@@ -11,6 +11,7 @@ import { ServiceProvider } from '../entities/service-provider.entity';
 import { ServiceProviderRepository } from '../repositories/service-provider.repository';
 import { ServiceProviderSkillService } from '../../service-provider-skill/service/service-provider-skill.service';
 import { SkillsService } from '../../skill/service/skill.service';
+import { UpdateServiceProviderDto } from '../dto/update-servicec-provider.dto';
 
 @Injectable()
 export class ServiceProviderService {
@@ -82,6 +83,10 @@ export class ServiceProviderService {
     if (!this.documentValidator.isValidCnpj(cnpj)) {
       throw new HttpException('CNPJ invalid', HttpStatus.BAD_REQUEST);
     }
+  }
+
+  async update(id: string, updateProviderDto: UpdateServiceProviderDto) {
+    this.serviceProviderRepository.update(id, updateProviderDto);
   }
 
   async findWaitingForApproval(): Promise<AwaitingForApprovalResponseDto[]> {
