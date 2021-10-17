@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 import { CreatePersonDto } from './create-person.dto';
 
 export class UpdatePersonDto extends PartialType(CreatePersonDto) {
@@ -8,5 +8,10 @@ export class UpdatePersonDto extends PartialType(CreatePersonDto) {
     @IsNotEmpty({ message: 'This field cannot be empty.' })
     @ApiProperty({ default: false })
     isBlocked: boolean;
+
+    @IsNumber()
+    @IsOptional({ message: 'This field cannot be empty.' })
+    @ApiProperty({ default: 0 })
+    rating: boolean;
 
 }

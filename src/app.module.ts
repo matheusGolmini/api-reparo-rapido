@@ -17,6 +17,7 @@ import { TicketModule } from './ticket/ticket.module';
 import { ContractModule } from './contract/contract.module';
 import { ServiceProviderSkillModule } from './service-provider-skill/service-provider-skill.module';
 import { UploadModule } from './upload/upload.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { UploadModule } from './upload/upload.module';
     ContractModule,
     ServiceProviderSkillModule,
     UploadModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
