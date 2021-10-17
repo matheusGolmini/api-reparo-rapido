@@ -6,18 +6,22 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { TicketService } from '../service/ticket.service';
 import { CreateTicketDto } from '../dto/create-ticket.dto';
 import { UpdateTicketDto } from '../dto/update-ticket.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 @ApiTags('Ticket')
 @Controller('ticket')
 export class TicketController {
   constructor(private readonly ticketService: TicketService) {}
 
-@Post()
+  @Post()
   create(@Body() createTicketDto: CreateTicketDto) {
     return this.ticketService.create(createTicketDto);
   }
