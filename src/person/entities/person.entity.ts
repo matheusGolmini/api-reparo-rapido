@@ -40,7 +40,7 @@ export class Person extends DefaultAttributes {
   @Column({ type: 'boolean', name: 'is_blocked', default: false })
   isBlocked: boolean;
 
-  @Column({ type: 'number', name: 'rating', default: 0 })
+  @Column({ type: 'numeric', name: 'rating', default: 0 })
   rating: number;
 
   @OneToMany(() => PersonBlocked, (personBlocked) => personBlocked.person)

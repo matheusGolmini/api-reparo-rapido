@@ -32,6 +32,7 @@ async function bootstrap() {
     .addTag('Rating')
     .addTag('PersonAddress')
     .addTag('Upload')
+    .addTag('Rating')
     .addServer('http://localhost:3001')
     .addServer('https://api-reparo-rapido.herokuapp.com/')
     .build();

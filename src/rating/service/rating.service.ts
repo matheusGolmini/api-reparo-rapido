@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PersonRepository } from 'src/person/repositories/person.repository';
-import { PersonService } from 'src/person/service/person.service';
 import { CreateRatingDto } from '../dto/create-rating.dto';
 import { UpdateRatingDto } from '../dto/update-rating.dto';
 import { RatingRepository } from '../repositories/rating.repository';
@@ -10,115 +9,103 @@ import { RatingRepository } from '../repositories/rating.repository';
 export class RatingService {
   constructor(
     @InjectRepository(RatingRepository)
-      private readonly ratingRepository: RatingRepository,
-      private readonly personRepository: PersonRepository
+    private readonly ratingRepository: RatingRepository,
+    private readonly personRepository: PersonRepository,
   ) {}
-  
+
   async create(createRatingDto: CreateRatingDto) {
     const ratedPerson = await this.personRepository.findOne({
-      where: { id: createRatingDto.idRatedPerson }
+      where: { id: createRatingDto.ratedPerson },
     });
     if (ratedPerson) {
       const savedRating = await this.ratingRepository.save(createRatingDto);
       const ratings = await this.ratingRepository.find({
-        where: { ratedPerson: createRatingDto.idRatedPerson }
+        where: { ratedPerson: createRatingDto.ratedPerson },
       });
       let sum = 0;
       for (const rating of ratings) {
         sum += rating.rating;
       }
-      const newRating = sum / (ratings.length + 1);
+      const newRating = sum / ratings.length;
       this.personRepository.update(
-        { id: createRatingDto.idRatedPerson },
-        { rating: newRating }
+        { id: createRatingDto.ratedPerson },
+        { rating: newRating },
       );
       return savedRating;
     }
-    return `RatedPerson not found`;
+    throw new HttpException(`RatingPerson not found`, HttpStatus.NOT_FOUND);
   }
 
   async findOne(id: string) {
     return await this.ratingRepository.findOne({
-      where: { id: id }
+      where: { id: id },
     });
   }
 
   async findAllByRatedPerson(idRatedPerson: string) {
     return await this.ratingRepository.find({
-      where: { idRatedPerson: idRatedPerson }
+      where: { idRatedPerson: idRatedPerson },
     });
   }
 
   async findAllByRatingPerson(idRatingPerson: string) {
     return await this.ratingRepository.find({
-      where: { idRatingPerson: idRatingPerson }
+      where: { idRatingPerson: idRatingPerson },
     });
   }
 
-  async findAllByService(idService: string) {
-    return await this.ratingRepository.find({
-      where: { idService: idService }
+  async findAllByContract(idContract: string, ratingPerson: string) {
+    return await this.ratingRepository.findOne({
+      where: { contract: idContract, ratingPerson },
     });
   }
 
   async update(id: string, updateRatingDto: UpdateRatingDto) {
     const rating = await this.ratingRepository.findOne({
-      where: { id: id }
+      where: { id: id },
     });
     if (rating) {
-      let ratedPerson = await this.personRepository.findOne({
-        where: { id: rating.ratedPerson }
+      const updatedRating = await this.ratingRepository.update(
+        { id: id },
+        updateRatingDto,
+      );
+      const ratings = await this.ratingRepository.find({
+        where: { ratedPerson: rating.ratedPerson },
       });
-      if (ratedPerson) {
-        const updatedRating = await this.ratingRepository.update(
-          { id: id },
-          updateRatingDto
-        );
-        const ratings = await this.ratingRepository.find({
-          where: { ratedPerson: rating.ratedPerson }
-        });
-        let sum = 0;
-        for (const rating of ratings) {
-          sum += rating.rating;
-        }
-        const newRating = sum / (ratings.length + 1);
-        this.personRepository.update(
-          { id: rating.ratedPerson },
-          { rating: newRating }
-        );
-        return updatedRating;
+      let sum = 0;
+      for (const rating of ratings) {
+        sum += rating.rating;
       }
-      return `RatingPerson not found`;
+      const newRating = sum / ratings.length;
+      this.personRepository.update(
+        { id: rating.ratedPerson },
+        { rating: newRating },
+      );
+      return updatedRating;
     }
-    return `Rating not found`;
+    throw new HttpException(`Rating not found`, HttpStatus.NOT_FOUND);
   }
 
   async remove(id: string) {
     const rating = await this.ratingRepository.findOne({
-      where: { id: id }
+      where: { id: id },
     });
     if (rating) {
-      let ratedPerson = await this.personRepository.findOne({
-        where: { id: rating.ratedPerson }
+      const deletedRating = await this.ratingRepository.delete(rating);
+      const ratings = await this.ratingRepository.find({
+        where: { ratedPerson: rating.ratedPerson },
       });
-      if (ratedPerson) {
-        const deletedRating = await this.ratingRepository.delete(rating);
-        const ratings = await this.ratingRepository.find({
-          where: { ratedPerson: rating.ratedPerson }
-        });
-        let sum = 0;
-        for (const rating of ratings) {
-          sum += rating.rating;
-        }
-        const newRating = sum / (ratings.length + 1);
-        this.personRepository.update(
-          { id: rating.ratedPerson },
-          { rating: newRating }
-        );
-        return deletedRating;
+      let sum = 0;
+      for (const rating of ratings) {
+        sum += rating.rating;
       }
-      return `RatingPerson not found`;
+      const newRating = ratings.length > 0 ? sum / ratings.length : 0;
+      this.personRepository.update(
+        { id: rating.ratedPerson },
+        { rating: newRating },
+      );
+      return deletedRating;
     }
-    return `Rating not found`;
+    throw new HttpException(`Rating not found`, HttpStatus.NOT_FOUND);
   }
 }
