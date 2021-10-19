@@ -44,6 +44,11 @@ export class ContractController {
     );
   }
 
+  @Get('provider/status')
+  findaAllContractStatus(@Request() { user }: any) {
+    return this.contractService.findAllContractStatus(user.id);
+  }
+
   @Get('provider/in-progress')
   findAllInProgressProvider(@Request() { user }: any) {
     return this.contractService.findAllContractProviderByStatusAndPoviderId(

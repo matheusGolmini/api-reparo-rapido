@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { In } from 'typeorm';
 import { ClientService } from '../../client/service/client.service';
 import { ContractStatus } from '../../enum/status';
 import { Person } from '../../person/entities/person.entity';
@@ -87,6 +88,21 @@ export class ContractService {
     });
   }
 
+  async findAllContractStatus(idProvider: string) {
+    const contracts = await this.repositoryContract.find({
+      where: {
+        idProvider,
+        status: In([
+          ContractStatus.ESPERANDO_ASSINATURA,
+          ContractStatus.EM_ANDAMENTO,
+          ContractStatus.FINALIZADO,
+        ]),
+        approved: true,
+      },
+    });
+    return this.calculatorContractStatus(contracts);
+  }
+
   findOne(id: string) {
     return this.repositoryContract.findOne({ where: { id } });
   }
@@ -125,5 +141,22 @@ export class ContractService {
     //Ajustar a porcentagem pela estrela do prestador
     const amountApp = Number(amountTotal) - Number(amountTotal) * 0.1;
     return String(amountApp);
+  }
+
+  private calculatorContractStatus(contracts: Contract[]) {
+    const response = { finalizado: 0, aguardandoAssintura: 0, emAndamento: 0 };
+    if (contracts.length > 0) return response;
+
+    contracts.forEach((value) => {
+      if (value.status === ContractStatus.ESPERANDO_ASSINATURA) {
+        response.aguardandoAssintura += 1;
+      }
+      if (value.status === ContractStatus.EM_ANDAMENTO) {
+        response.emAndamento += 1;
+      }
+      if (value.status === ContractStatus.FINALIZADO) {
+        response.finalizado += 1;
+      }
+    });
   }
 }
