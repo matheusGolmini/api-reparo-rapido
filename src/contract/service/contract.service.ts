@@ -145,7 +145,7 @@ export class ContractService {
 
   private calculatorContractStatus(contracts: Contract[]) {
     const response = { finalizado: 0, aguardandoAssintura: 0, emAndamento: 0 };
-    if (contracts.length > 0) return response;
+    if (contracts.length === 0) return response;
 
     contracts.forEach((value) => {
       if (value.status === ContractStatus.ESPERANDO_ASSINATURA) {
@@ -158,5 +158,6 @@ export class ContractService {
         response.finalizado += 1;
       }
     });
+    return response;
   }
 }
