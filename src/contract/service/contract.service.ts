@@ -86,9 +86,6 @@ export class ContractService {
         status,
         approved: true,
       },
-      order: {
-        created_at: 'DESC',
-      },
     });
   }
 
