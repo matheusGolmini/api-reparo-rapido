@@ -69,8 +69,8 @@ export class ContractService {
         join skill s on s.id = sps.id_skill 
           where c.id_person = $1
         and c.status = $2
-        and c.approved = true;
-        order by created_at desc
+        and c.approved = true
+        order by created_at desc;
       `,
       [idPerson, status],
     );
