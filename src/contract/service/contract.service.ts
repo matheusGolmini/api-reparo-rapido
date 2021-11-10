@@ -70,6 +70,7 @@ export class ContractService {
           where c.id_person = $1
         and c.status = $2
         and c.approved = true;
+        order by created_at desc
       `,
       [idPerson, status],
     );
@@ -85,6 +86,9 @@ export class ContractService {
         status,
         approved: true,
       },
+      order: {
+        created_at: 'DESC',
+      },
     });
   }
 
@@ -98,6 +102,9 @@ export class ContractService {
           ContractStatus.FINALIZADO,
         ]),
         approved: true,
+        order: {
+          created_at: 'DESC',
+        },
       },
     });
     return this.calculatorContractStatus(contracts);
