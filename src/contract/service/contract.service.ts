@@ -99,9 +99,6 @@ export class ContractService {
           ContractStatus.FINALIZADO,
         ]),
         approved: true,
-        order: {
-          created_at: 'DESC',
-        },
       },
     });
     return this.calculatorContractStatus(contracts);
