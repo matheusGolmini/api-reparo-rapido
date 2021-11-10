@@ -76,11 +76,11 @@ export class ServiceProviderService {
     }
   }
 
-  validtorDocument(cpf: string, cnpj: string): void {
+  validtorDocument(cpf: string, cnpj?: string): void {
     if (!this.documentValidator.isValidCpf(cpf)) {
       throw new HttpException('CPF invalid', HttpStatus.BAD_REQUEST);
     }
-    if (!this.documentValidator.isValidCnpj(cnpj)) {
+    if (!!cnpj && !this.documentValidator.isValidCnpj(cnpj)) {
       throw new HttpException('CNPJ invalid', HttpStatus.BAD_REQUEST);
     }
   }
