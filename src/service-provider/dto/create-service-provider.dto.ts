@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { CreatePersonDto } from '../../person/dto/create-person.dto';
 
 export class CreateServiceProviderDto extends CreatePersonDto {
   @IsString()
-  @IsNotEmpty({ message: 'This field cannot be empty.' })
+  @IsOptional()
   @ApiProperty({ example: '65.143.593/0001-90' })
   cnpj: string;
 
